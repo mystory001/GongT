@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- namespace="com.itwillbs.mappers.boardMapper" 
+       => boardMapper 파일 => xml 파일이름 -->
+<mapper namespace="com.itwillbs.mappers.MemberMapper">
+	
+	<select id="userCheck" resultType="com.itwillbs.domain.MemberDTO"> 
+		select * from member 
+		where id = #{id} and pw = #{pw} 
+	</select>
+	
+	<select id="insertCheck" resultType="com.itwillbs.domain.MemberDTO">
+		select * from member
+		where id = #{id} or email = #{email} or phone = #{phone}
+		<if test="comnum != null">or comnum = #{comnum}</if>
+	</select>
+
+
+<insert id="insertMember"> 
+insert into member(id, pw, name, comnum, email, phone, type) 
+values(#{id}, #{pw}, #{name},#{comnum},#{email},#{phone}, #{type})  
+</insert>
+
+<!--  아이디 찾기  -->
+<select id="userCheckID" resultType="com.itwillbs.domain.MemberDTO"> 
+select id from member where name = #{name} and email = #{email} </select>
+<!--  비밀번호 찾기  -->
+<select id="userCheckPW" resultType="com.itwillbs.domain.MemberDTO"> 
+select pw from member where id = #{id} and name = #{name} and email = #{email} </select>
+
+<!--  사업자번호 중복확인  -->
+<select id="getComNum" resultType="com.itwillbs.domain.MemberDTO"> 
+select * from member where comnum = #{comnum} </select>
+<!--  이메일 중복확인  -->
+<select id="getEmail" resultType="com.itwillbs.domain.MemberDTO"> 
+select * from member where email = #{email} </select>
+<!--  전화번호 중복확인  -->
+<select id="getPhone" resultType="com.itwillbs.domain.MemberDTO"> 
+select * from member where phone = #{phone} </select>
+
+
+
+	<select id="getCompanyCount" resultType="java.lang.Integer">
+		select count(*) from member where type = 1
+	</select>
+
+	<select id="getMatchingCount" resultType="java.lang.Integer">
+		select sum(matching) from member
+	</select>
+	
+	
+	
+		<select id="getMember" resultType="com.itwillbs.domain.MemberDTO">
+			select * from member
+			where id = #{id}
+	</select>
+	
+		<update id="updateMember">
+			update member set pw = #{pw}, name = #{name}, phone=#{phone}, email=#{email}
+			where id = #{id}
+		</update>
+	
+		<select id="projectCheck" resultType="com.itwillbs.domain.ProjectDTO">
+			select p_title, p_writedate, p_member, p_num from project
+			where id = #{id}
+			order by p_num desc
+		</select>
+		
+		<select id="resumeScrap" resultType="com.itwillbs.domain.Scrap_resumeDTO">
+			select fm.name, r.r_name, r.r_num
+			from scrap_resume s join member m
+			on s.id = m.id 
+			join resume r
+			on s.r_num = r.r_num
+			join member fm
+			on r.id = fm.id
+			where m.id = #{id}
+		</select>
+	
+			<select id="projectScrap" resultType="com.itwillbs.domain.Scrap_projectDTO">
+			select fm.name, p.p_title, p.p_num
+			from scrap_project s join  member m
+			on s.id = m.id 
+			join project p
+			on s.p_num = p.p_num
+			join member fm
+			on p.id = fm.id
+			where m.id = #{id}
+		</select>
+	
+		<delete id="deleteMember">
+			delete from member 
+			where id = #{id}
+		</delete>
+
+<!-- 삭제	 -->
+	<select id="resumeCheck" resultType="com.itwillbs.domain.ResumeDTO">
+
+			select r_name, r_salary, r_num from resume
+
+			where id = #{id}
+			order by r_num desc
+		</select>
+		
+
+	
+		
+		
+	
+</mapper>
+
+

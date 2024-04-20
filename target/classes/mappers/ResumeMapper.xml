@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- namespace="com.itwillbs.mappers.boardMapper" 
+       => boardMapper 파일 => xml 파일이름 -->
+<mapper namespace="com.itwillbs.mappers.ResumeMapper">
+
+
+	<select id="getResumeCount" resultType="java.lang.Integer">
+		select count(*) from resume
+	</select>
+
+	
+
+	
+	<select id="getResumeMaxNum" resultType="java.lang.Integer">
+	 select max(r_num) from resume 
+	 </select>
+
+
+	
+
+	<select id="getResume" resultType="com.itwillbs.domain.ResumeDTO">
+		select r.*, f.field, rg.region from resume r join field f on r.field_num = f.field_num
+		join region rg on r.region_num = rg.region_num where r.r_num = #{r_num}
+	</select>
+	
+	<select id="getMember" resultType="com.itwillbs.domain.MemberDTO">
+		select m.* from member m join resume r on m.id = r.id where r.r_num = #{r_num}
+	</select>
+
+
+
+
+	<select id="getResumeBoardList" resultType="com.itwillbs.domain.ResumeDTO">
+		select r.*, m.name, m.matching from resume r join member m on r.id = m.id
+		join field f on r.field_num = f.field_num
+		join region rg on r.region_num = rg.region_num
+			<if test="search != null">
+			<if test="select == 'r_name'"> where r_name like CONCAT('%',#{search},'%') </if>
+			<if test="select == 'r_content'"> where r_content like CONCAT('%',#{search},'%') </if>
+			<if test="select == 'name123'"> where m.name like CONCAT('%',#{search},'%') </if>
+			<if test="select == 'field'"> where f.field like CONCAT('%',#{search},'%') </if>
+			<if test="select == 'region'"> where rg.region like CONCAT('%',#{search},'%') </if>
+			</if>
+			<if test="sort == '' or sort == null">
+			order by r.r_num desc
+			</if>
+			<if test="sort == 'sortM'"> order by m.matching desc, r.r_num desc</if>
+			<if test="sort == 'sortS'"> order by r.r_salary desc</if>
+			limit #{startRow},#{pageSize}
+	</select>
+	<select id="getResumeBoardCount" resultType="java.lang.Integer">
+		select count(r.r_num) from resume r join member m on r.id = m.id
+		join field f on r.field_num = f.field_num
+		join region rg on r.region_num = rg.region_num
+			<if test="search != null">
+			<if test="select == 'r_name'"> where r_name like CONCAT('%',#{search},'%') </if>
+			<if test="select == 'r_content'"> where r_content like CONCAT('%',#{search},'%') </if>
+			<if test="select == 'name123'"> where m.name like CONCAT('%',#{search},'%') </if>
+			<if test="select == 'field'"> where f.field like CONCAT('%',#{search},'%') </if>
+			<if test="select == 'region'"> where rg.region like CONCAT('%',#{search},'%') </if>
+			</if>
+	</select>
+
+
+
+
+<select id="getResumeBoard" resultType="com.itwillbs.domain.ResumeDTO"> 
+	select * from resume 
+	where r_num = #{r_num}
+</select>
+
+<!-- 찜 확인 -->
+<select id="scrap" resultType="com.itwillbs.domain.Scrap_resumeDTO">
+	select * from scrap_resume
+	where r_num = #{r_num} and id = #{id}
+</select>
+
+<!-- 찜 하기 -->
+<insert id="insertScrap">
+	insert into scrap_resume
+	values (#{sr_num}, #{r_num}, #{id})
+</insert>
+
+
+<!-- 이력서 작성 -->
+<insert id="insertResume">
+	insert into resume(r_num, id, region_num, field_num, r_name, r_career, r_tech, r_form, r_salary, r_exp, r_content, r_file)
+	values(#{r_num}, #{id}, #{region_num}, #{field_num}, #{r_name}, #{r_career}, #{r_tech}, #{r_form}, #{r_salary}, #{r_exp}, #{r_content}, #{r_file})
+</insert>
+	
+<!-- 이력서 수정 -->
+<update id="resumeUpdate">
+update resume
+set region_num = #{region_num}, 
+	field_num = #{field_num}, 
+	r_name = #{r_name},
+	r_career = #{r_career}, 
+	r_tech = #{r_tech},
+	r_form = #{r_form},
+	r_salary = #{r_salary},
+	r_exp = #{r_exp},
+	r_content = #{r_content},
+	r_file = #{r_file}
+where r_num = #{r_num}
+
+</update>
+
+<!-- 글 삭제 -->
+<delete id="resumeDelete">
+delete from resume
+where r_num = #{r_num}
+</delete>
+
+	
+	
+</mapper>
+
+

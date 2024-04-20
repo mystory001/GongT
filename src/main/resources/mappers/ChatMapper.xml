@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.itwillbs.mappers.ChatMapper">
+  
+<!--   		마이페이지 채팅 목록 -->
+		<select id="ChattingBangC" resultType="com.itwillbs.domain.ChatDTO">
+
+			select c.c_num, c.cid, c.fid, c.c_matching, m.c_content, m.c_time, m.id 
+
+			from chat c join message m 
+			on c.c_num = m.c_num
+			where c.cid = #{id}
+			and m.id != #{id} 
+			order by m.c_time desc
+		</select>
+		
+		<select id="ChattingBangF" resultType="com.itwillbs.domain.ChatDTO">
+
+			select c.c_num, c.cid, c.fid, c.c_matching, m.c_content, m.c_time , m.id
+
+			from chat c join message m 
+			on c.c_num = m.c_num
+			where c.fid = #{id} 
+			and m.id != #{id} 
+			order by m.c_time desc
+		</select>
+		
+		
+<!-- 		<insert id="insertbang"> -->
+<!-- 			insert into chat(sid, rid) -->
+<!-- 			values(#{sid}, #{rid}) -->
+<!-- 		</insert> -->
+		
+		
+<!-- 		쪽지 방 -->
+
+		<insert id="insertMessage">
+			insert into message(c_num, id, c_content)
+			values(#{c_num}, #{id}, #{c_content})
+		</insert>
+		
+
+			
+			
+	<update id="updateMatching">
+		update chat
+		set c_matching = true
+		where c_num = #{c_num}
+	</update>
+	
+		<update id="updateMatchingF">
+		 update member
+		 set matching = matching + 1
+		 where id = #{fid}
+		</update>
+
+		<update id="updateMatchingC">
+		 update member
+		 set matching = matching + 1
+		 where id = #{cid}
+		</update>
+
+
+		<select id="getChat" resultType="com.itwillbs.domain.ChatDTO">
+			select * from chat where c_num = #{c_num}
+		</select>
+			
+		<select id="getMessage" resultType="com.itwillbs.domain.ChatDTO">
+			select c.c_num, c.cid, c.fid, c.c_matching, m.c_content, m.c_time , m.id
+			from chat c join message m 
+			on c.c_num = m.c_num
+			where c.c_num = #{c_num} 
+		</select>
+
+		
+		
+<!-- 	채팅 시작 -->
+		<insert id="insertChat">
+			insert into chat(fid, cid)
+			values(#{fid}, #{cid})
+		</insert>
+		
+		<select id="getChatDTO" resultType="com.itwillbs.domain.ChatDTO">
+			select * from chat
+			where fid = #{fid} and cid = #{cid}
+		</select>
+		
+
+			
+</mapper>

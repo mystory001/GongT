@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<!-- namespace="com.itwillbs.mappers.boardMapper" 
+       => boardMapper 파일 => xml 파일이름 -->
+<mapper namespace="com.itwillbs.mappers.ProjectMapper">
+
+	<select id="getProjectCount" resultType="java.lang.Integer">
+		select count(*) from project
+	</select>
+	<select id="getProjectMaxNum" resultType="java.lang.Integer"> select max(p_num) from project </select>
+	
+	<select id="getMember" resultType="com.itwillbs.domain.MemberDTO">
+		select m.* from member m join project p on m.id = p.id where p.p_num = #{p_num}
+	</select>
+	
+	<select id="getProject" resultType="com.itwillbs.domain.ProjectDTO">
+		select p.*, f.*, rg.*
+		from project p join field f
+		on p.field_num = f.field_num
+		join region rg
+		on p.region_num = rg.region_num
+		where p.p_num = #{p_num}
+	</select>
+
+	
+<!-- 		<insert id="insertProject"> -->
+<!-- 			insert into project(p_title, p_content, p_deadline, p_start, p_end, p_member, region_num, field_num ) -->
+<!-- 			values (#{p_title},#{p_content}, #{p_deadline}, #{p_start}, #{p_end}, #{p_member}, #{region_num}, #{field_num}) -->
+<!-- 		</insert> -->
+		
+		
+		<select id="getProjectBoardList" resultType="com.itwillbs.domain.ProjectDTO">
+		select p.*, m.name, m.matching from project p join member m on p.id = m.id
+		join field f on p.field_num = f.field_num
+		join region r on p.region_num = r.region_num
+			<if test="search != null">
+			<if test="select == 'p_title'"> where p_title like CONCAT('%',#{search},'%') </if>
+			<if test="select == 'p_content'"> where p_content like CONCAT('%',#{search},'%') </if>
+			<if test="select == 'name123'"> where m.name like CONCAT('%',#{search},'%') </if>
+			<if test="select == 'field'"> where f.field like CONCAT('%',#{search},'%') </if>
+			<if test="select == 'region'"> where r.region like CONCAT('%',#{search},'%') </if>
+			</if>
+			<if test="sort == '' or sort == null">
+			order by p.p_num desc
+			</if>
+			<if test="sort == 'sortM'"> order by m.matching desc, p.p_num desc </if>
+			<if test="sort == 'sortR'"> order by p.p_readcount desc </if>
+			limit #{startRow},#{pageSize}
+	</select>
+		
+	<select id="getProjectBoardCount" resultType="java.lang.Integer">
+		select count(p.p_num) from project p join member m on p.id = m.id
+		join field f on p.field_num = f.field_num
+		join region r on p.region_num = r.region_num
+			<if test="search != null">
+			<if test="select == 'p_title'"> where p_title like CONCAT('%',#{search},'%') </if>
+			<if test="select == 'p_content'"> where p_content like CONCAT('%',#{search},'%') </if>
+			<if test="select == 'name123'"> where m.name like CONCAT('%',#{search},'%') </if>
+			<if test="select == 'field'"> where f.field like CONCAT('%',#{search},'%') </if>
+			<if test="select == 'region'"> where r.region like CONCAT('%',#{search},'%') </if>
+			</if>
+	</select>
+	
+	
+<select id="getProjectBoard" resultType="com.itwillbs.domain.ProjectDTO"> select * from project where p_num = #{p_num} </select>
+<update id="updateProjectReadcount"> update project set p_readcount = p_readcount + 1 where p_num = #{p_num} </update>
+
+	
+	
+		
+<!-- 찜 확인 -->
+<select id="scrap" resultType="com.itwillbs.domain.Scrap_projectDTO">
+	select * from scrap_project
+	where p_num = #{p_num} and id = #{id}
+</select>
+
+<!-- 찜 하기 -->
+<insert id="insertScrap">
+	insert into scrap_project
+	values (#{sp_num}, #{p_num}, #{id})
+</insert>	
+
+<!-- 글 삭제 -->
+<delete id="projectDelete">
+delete from project
+where p_num = #{p_num}
+</delete>
+
+<!-- 프로젝트 작성 -->
+<insert id="insertProject">
+insert into project(id, p_title, p_member, field_num, region_num, p_start, p_end, p_deadline, p_file, p_content)
+values(#{id}, #{p_title}, #{p_member}, #{field_num}, #{region_num}, #{p_start}, #{p_end}, #{p_deadline}, #{p_file}, #{p_content})
+</insert>
+
+<update id="projectUpdate">
+update project
+set p_title = #{p_title},
+	p_member = #{p_member},
+	field_num = #{field_num},
+	region_num = #{region_num},
+	p_start = #{p_start},
+	p_end = #{p_end},
+	p_deadline = #{p_deadline},
+	p_file = #{p_file},
+	p_content = #{p_content}
+where p_num = #{p_num}
+</update>
+
+
+
+		
+</mapper>
