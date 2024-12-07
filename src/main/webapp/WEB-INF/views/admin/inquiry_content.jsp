@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>문의 내용</title>
+<title>공티 문의 내용</title>
 <link href="//i.jobkorea.kr/content/css/ver_2/text_user/resume/view.css?v=202402061400" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
@@ -52,9 +52,9 @@ vertical-align:middle; overflow:visible; background:transparent; cursor:pointer;
 	<div class="sidemenu-wrap" style="margin-left:-1660px; margin-top: 195px;">
     <div class="sidemenu">
     
-        <button type="button" class="button button-update" ><span onclick="location.href='${pageContext.request.contextPath}/Admin/notice'" >공지사항</span></button>
-      	<button type="button" class="button button-update" ><span onclick="location.href='${pageContext.request.contextPath}/Admin/FAQ'" >자주 묻는 질문</span></button>
-        <button type="button" class="button button-update" style="background-color: #1842B6;"><span onclick="location.href='${pageContext.request.contextPath}/Admin/inquiry'" style="color: white !important;">1:1문의</span></button>
+        <button type="button" class="button button-update" ><span onclick="location.href='${pageContext.request.contextPath}/admin/notice'" >공지사항</span></button>
+      	<button type="button" class="button button-update" ><span onclick="location.href='${pageContext.request.contextPath}/admin/FAQ'" >자주 묻는 질문</span></button>
+        <button type="button" class="button button-update" style="background-color: #1842B6;"><span onclick="location.href='${pageContext.request.contextPath}/admin/inquiry'" style="color: white !important;">1:1문의</span></button>
     </div>
 
 </div>
@@ -107,21 +107,21 @@ vertical-align:middle; overflow:visible; background:transparent; cursor:pointer;
 <div id="table_search">
 		<c:if test="${sessionScope.id != 'admin'}">
 		<input type="button" value="문의 수정" class="btn btn-primary"
-  			onclick="location.href='${pageContext.request.contextPath}/Admin/inquiry_update?i_num=${inquiryDTO.i_num}'">
+  			onclick="location.href='${pageContext.request.contextPath}/admin/inquiry_update?i_num=${inquiryDTO.i_num}'">
 		<input type="button" value="문의 삭제" class="btn btn-primary" 
-  			onclick="location.href='${pageContext.request.contextPath}/Admin/inquiry_delete?i_num=${inquiryDTO.i_num}'">
+  			onclick="location.href='${pageContext.request.contextPath}/admin/inquiry_delete?i_num=${inquiryDTO.i_num}'">
   		</c:if>
   		<c:if test="${sessionScope.id == 'admin'}">
 		<input type="button" value="답변 쓰기" class="btn btn-primary"  
-  			onclick="location.href='${pageContext.request.contextPath}/Admin/inquiry_answer?i_num=${inquiryDTO.i_num}'">
+  			onclick="location.href='${pageContext.request.contextPath}/admin/inquiry_answer?i_num=${inquiryDTO.i_num}'">
 		<input type="button" value="답변 수정" class="btn btn-primary"
-  			onclick="location.href='${pageContext.request.contextPath}/Admin/inquiry_answer?i_num=${inquiryDTO.i_num}'">
+  			onclick="location.href='${pageContext.request.contextPath}/admin/inquiry_answer?i_num=${inquiryDTO.i_num}'">
 		<input type="button" value="답변 삭제" class="btn btn-primary" 
-  			onclick="location.href='${pageContext.request.contextPath}/Admin/delete_answer?i_num=${inquiryDTO.i_num}'">
+  			onclick="location.href='${pageContext.request.contextPath}/admin/delete_answer?i_num=${inquiryDTO.i_num}'">
   		
 		</c:if>
 <input type="button" value="문의 목록" class="btn btn-primary" 
-  onclick="location.href='${pageContext.request.contextPath}/Admin/inquiry'">
+  onclick="location.href='${pageContext.request.contextPath}/admin/inquiry'">
 </div>
 
 </fieldset>

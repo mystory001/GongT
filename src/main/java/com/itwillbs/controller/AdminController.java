@@ -27,7 +27,6 @@ public class AdminController {
 	@Inject
 	private AdminService adminService;
 
-	/* 공지사항 페이지 */
 	@GetMapping("/admin/notice")
 	public String notice(HttpServletRequest request, PageDTO pageDTO, Model model) {
 		System.out.println("NoticeController notice()");
@@ -287,7 +286,6 @@ public class AdminController {
 		return "/adminPage/adminPro";
 	}
 
-	// ?
 	@GetMapping("/adminPage/adminDeletePro")
 	public String adminDeletePro(ProjectDTO projectDTO) {
 		System.out.println("AdminController adminDeletePro()");
@@ -295,14 +293,15 @@ public class AdminController {
 		return "redirect:/adminPage/adminPro";
 	}
 
-	@GetMapping("/admingPage/adminResume")
+	@GetMapping("/adminPage/adminResume")
 	public String adminResume(HttpSession session, Model model) {
-		System.out.println("MemberController adminResume()");
+		System.out.println("AdminController adminResume()");
 		List<ResumeDTO> resumeDTOList = adminService.aresume();
 		model.addAttribute("resumeDTOList", resumeDTOList);
 		return "/adminPage/adminResume";
 	}
 
+	//지원서 삭제
 	@GetMapping("/adminPage/adminDeleteResume")
 	public String adminDeleteResume(ResumeDTO resumeDTO) {
 		System.out.println("AdminController adminDeleteResume()");

@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>notice</title>
+<title>공티 문의 작성</title>
 <link href="//i.jobkorea.kr/content/css/ver_2/text_user/resume/view.css?v=202402061400" rel="stylesheet" type="text/css" />
 
 <style>

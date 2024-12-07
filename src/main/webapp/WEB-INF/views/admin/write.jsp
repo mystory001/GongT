@@ -1,26 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Notice_write</title>
-
-<%-- <link href="${pageContext.request.contextPath}/resources/css/default.css" rel="stylesheet" type="text/css"> --%>
-<%-- <link href="${pageContext.request.contextPath}/resources/css/subpage.css" rel="stylesheet" type="text/css"> --%>
-<link href="//i.jobkorea.kr/content/css/ver_2/text_user/resume/view.css?v=202402061400" rel="stylesheet" type="text/css" />
-
+<title>공티 공지 작성</title>
+<link
+	href="//i.jobkorea.kr/content/css/ver_2/text_user/resume/view.css?v=202402061400"
+	rel="stylesheet" type="text/css" />
 
 <style>
-#border{
+#border {
 	height: 1130px;
 }
 
 #up {
-	margin-top : 75px;
+	margin-top: 75px;
 	text-align: center;
 	width: 100%;
-/* 	background-color: lightgray; */
 	height: 100px;
 	line-height: 100px;
 }
@@ -28,124 +25,146 @@
 #left {
 	height: 400px;
 	width: 180px;
-/* 	border-style : groove; */
 	float: left;
-/* 	border-radius: 20px; */
 	text-align: center;
 	margin-left: 10%;
 }
 
 #right {
- 	height: 700px; 
+	height: 700px;
 	width: 700px;
 	float: left;
 	text-align: center;
 	margin-right: 10%;
-		position: relative;
-		left : 8%;
+	position: relative;
+	left: 8%;
 }
-
 
 table {
 	width: 100%;
-/* 	height: 200px; */
 	border-collapse: collapse;
 	margin-bottom: 20px;
-	padding-left:50px;
+	padding-left: 50px;
 }
 
- th, td { 
-
- 	padding: 4px; 
- 
+th, td {
+	padding: 4px;
 }
 
 a {
-  text-decoration-line: none;
+	text-decoration-line: none;
 }
 
-button{
-padding:0; margin:0; font-size:12.5px; letter-spacing: 0px; border:0 none;
-vertical-align:middle; overflow:visible; background:transparent; cursor:pointer;
-}
-
-.sidemenu {
-	width: 15%;
-	position: relative;
-	top : 5%;
-	left : 8%;
-}
-
-#notice{
-	margin-left:200px;
-	}
-	
-	button{
-padding:0; margin:0; font-size:12.5px; letter-spacing: 0px; border:0 none;
-vertical-align:middle; overflow:visible; background:transparent; cursor:pointer;
+button {
+	padding: 0;
+	margin: 0;
+	font-size: 12.5px;
+	letter-spacing: 0px;
+	border: 0 none;
+	vertical-align: middle;
+	overflow: visible;
+	background: transparent;
+	cursor: pointer;
 }
 
 .sidemenu {
 	width: 15%;
 	position: relative;
-	top : 5%;
-	left : 8%;
+	top: 5%;
+	left: 8%;
 }
 
+#notice {
+	margin-left: 200px;
+}
+
+button {
+	padding: 0;
+	margin: 0;
+	font-size: 12.5px;
+	letter-spacing: 0px;
+	border: 0 none;
+	vertical-align: middle;
+	overflow: visible;
+	background: transparent;
+	cursor: pointer;
+}
+
+.sidemenu {
+	width: 15%;
+	position: relative;
+	top: 5%;
+	left: 8%;
+}
 </style>
 </head>
 
 </head>
 <body>
-<jsp:include page="../inc/top.jsp" />
-<div id="border">
-<div id="up">
-	
-</div>
+	<jsp:include page="../inc/top.jsp" />
+	<div id="border">
+		<div id="up"></div>
 
-<div id="left">		
+		<div id="left">
 
-<div class="sidemenu">
-        <button type="button" class="button button-update" style="background-color: #1842B6;"><span onclick="location.href='${pageContext.request.contextPath}/Admin/notice'" style="color: white !important;">공지사항</span></button>
-      	<button type="button" class="button button-update"><span onclick="location.href='${pageContext.request.contextPath}/Admin/FAQ'">자주 묻는 질문</span></button>
-        <button type="button" class="button button-update"><span onclick="location.href='${pageContext.request.contextPath}/Admin/inquiry'">1:1문의</span></button>
-</div>
-
-
-
-
-
-</div>
-
-<div id="right">
-<h2 style="margin-left: 120px;">공지사항 글쓰기</h2>
-<form action="${pageContext.request.contextPath}/Admin/writePro" method="post">
-<table>
-<tr>
-	<td>작성자</td>
-	<td><input type="text" name="admin_id" id = "write" value="${sessionScope.id}" style ="width:473px;" readonly></td>
-</tr>
-<tr>
-<td>공지사항 제목</td>
-	<td><input type="text" id = "write" name="n_title"  style ="width:473px;"></td>
-</tr>
-<tr>
-<td>공지사항 내용</td>
-	<td><textarea name="n_content" rows="20" cols="50" id = "write" style ="width:473px;"></textarea></td>
-</tr>
-<tr>
-<td></td>
-<td style="text-align: center;"><input type="submit" value="글쓰기" class="btn btn-primary" ></input></td>
-</tr>
-
-</table>
-</form>
-<div class="clear"></div>
+			<div class="sidemenu">
+				<button type="button" class="button button-update"
+					style="background-color: #1842B6;">
+					<span
+						onclick="location.href='${pageContext.request.contextPath}/admin/notice'"
+						style="color: white !important;">공지사항</span>
+				</button>
+				<button type="button" class="button button-update">
+					<span
+						onclick="location.href='${pageContext.request.contextPath}/admin/FAQ'">자주
+						묻는 질문</span>
+				</button>
+				<button type="button" class="button button-update">
+					<span
+						onclick="location.href='${pageContext.request.contextPath}/admin/inquiry'">1:1문의</span>
+				</button>
+			</div>
 
 
-</div>
 
-</div>
-<jsp:include page="../inc/bottom.jsp" />
+
+
+		</div>
+
+		<div id="right">
+			<h2 style="margin-left: 120px;">공지사항 글쓰기</h2>
+			<form action="${pageContext.request.contextPath}/admin/writePro"
+				method="post">
+				<table>
+					<tr>
+						<td>작성자</td>
+						<td><input type="text" name="admin_id" id="write"
+							value="${sessionScope.id}" style="width: 473px;" readonly></td>
+					</tr>
+					<tr>
+						<td>공지사항 제목</td>
+						<td><input type="text" id="write" name="n_title"
+							style="width: 473px;"></td>
+					</tr>
+					<tr>
+						<td>공지사항 내용</td>
+						<td><textarea name="n_content" rows="20" cols="50" id="write"
+								style="width: 473px;"></textarea></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td style="text-align: center;"><input type="submit"
+							value="글쓰기" class="btn btn-primary"></input></td>
+					</tr>
+
+				</table>
+			</form>
+			<div class="clear"></div>
+
+
+		</div>
+
+	</div>
+	<jsp:include page="../inc/bottom.jsp" />
 </body>
 </html>
