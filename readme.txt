@@ -9,8 +9,11 @@
 - 팀 프로젝트 깃 : https://github.com/MaomiMaru/GonT0223/tree/master/GongT1
 
 =======================================================================================================
-241206
-AdminController 어노테이션 및 메소드 수정
+241208
+완료?
 
 241207
 AdminController 수정 완료 views - admin, adminPage 수정완료
+
+241206
+AdminController 어노테이션 및 메소드 수정

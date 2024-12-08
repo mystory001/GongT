@@ -301,7 +301,7 @@ public class AdminController {
 		return "/adminPage/adminResume";
 	}
 
-	//지원서 삭제
+	// 지원서 삭제
 	@GetMapping("/adminPage/adminDeleteResume")
 	public String adminDeleteResume(ResumeDTO resumeDTO) {
 		System.out.println("AdminController adminDeleteResume()");

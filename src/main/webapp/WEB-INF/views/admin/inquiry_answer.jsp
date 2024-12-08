@@ -77,38 +77,29 @@ button {
 <body>
 	<jsp:include page="../inc/top.jsp" />
 	<div id="border">
-		<div id="up">
-
-		</div>
+		<div id="up"></div>
 
 		<div id="left">
-
-
-			<div class="sidemenu">
-				<button type="button" class="button button-update">
-					<span
-						onclick="location.href='${pageContext.request.contextPath}/admin/notice'">공지사항</span>
-				</button>
-				<button type="button" class="button button-update">
-					<span
-						onclick="location.href='${pageContext.request.contextPath}/admin/FAQ'">자주
-						묻는 질문</span>
-				</button>
-				<button type="button" class="button button-update"
-					style="background-color: #1842B6;">
-					<span
-						onclick="location.href='${pageContext.request.contextPath}/admin/inquiry'"
-						style="color: white !important;">1:1문의</span>
-				</button>
-			</div>
-
+		style="margin-left: -1660px; margin-top: 195px;">
+		<div class="sidemenu">
+			<button type="button" class="button button-update"
+				style="background-color: #1842B6;">
+				<span
+					onclick="location.href='${pageContext.request.contextPath}/admin/notice'"
+					>공지사항</span>
+			</button>
+			<button type="button" class="button button-update">
+				<span
+					onclick="location.href='${pageContext.request.contextPath}/admin/FAQ'">자주 묻는 질문</span>
+			</button>
+			<button type="button" class="button button-update">
+				<span onclick="location.href='${pageContext.request.contextPath}/admin/inquiry'" style="color: white !important;">1:1문의</span>
+			</button>
 
 		</div>
-
+	</div>
+		</div>
 		<div id="right">
-
-
-
 			<h2 style="margin-left: 120px;">문의 하기</h2>
 
 

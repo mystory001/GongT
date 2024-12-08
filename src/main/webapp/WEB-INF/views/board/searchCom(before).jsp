@@ -1,63 +1,71 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="ko">
 
-	<head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>공T 프로젝트 찾기</title>
-        <script src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.min.js"></script>
-        
-        
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>사용하지 않는 페이지</title>
+<script
+	src="${pageContext.request.contextPath}/resources/js/jquery-3.7.1.min.js"></script>
+
+
 <!-- ★★★★★★★★★★★★★★ 스타일 태그 여기에 넣으시면 됩니다 ★★★★★★★★★★★★★★ -->
-<link href="//i.jobkorea.kr/content/css/ver_2/text_user/resume/view.css?v=202402061400" rel="stylesheet" type="text/css" />
-    	<style>
-button{
-padding:0; margin:0; font-size:12.5px; letter-spacing: 0px; border:0 none;
-vertical-align:middle; overflow:visible; background:transparent; cursor:pointer;
+<link
+	href="//i.jobkorea.kr/content/css/ver_2/text_user/resume/view.css?v=202402061400"
+	rel="stylesheet" type="text/css" />
+<style>
+button {
+	padding: 0;
+	margin: 0;
+	font-size: 12.5px;
+	letter-spacing: 0px;
+	border: 0 none;
+	vertical-align: middle;
+	overflow: visible;
+	background: transparent;
+	cursor: pointer;
 }
-    	
+
 #up {
-	margin-top : 50px !important;
+	margin-top: 50px !important;
 	text-align: center;
 	width: 100%;
-/* 	background-color: lightgray; */
+	/* 	background-color: lightgray; */
 	height: 60px;
 	line-height: 60px;
 }
 
-h2{
+h2 {
 	text-align: center;
 	height: 60px;
 	line-height: 60px;
 }
-
 
 .sidemenu {
 	width: 15%;
 	position: relative;
-	top : 5%;
-	left : 8%;
+	top: 5%;
+	left: 8%;
 }
 
 #left2 {
 	height: 150px;
 	width: 160px;
-	border-style : groove;
+	border-style: groove;
 	float: inherit;
 	border-radius: 20px;
 	text-align: left;
 	margin-left: 5%;
-	
 }
 
 #left3 {
 	height: 500px;
 	width: 160px;
-	border-style : groove;
+	border-style: groove;
 	float: inherit;
 	border-radius: 20px;
 	text-align: left;
@@ -69,13 +77,13 @@ h2{
 	text-align: center;
 	margin-right: 0px;
 	position: absolute;
-	top : 30%;
-	left : 35%;
-	}
+	top: 30%;
+	left: 35%;
+}
 
 table {
- 	width: 1000px !important;
-/* 	height: 200px; */
+	width: 1000px !important;
+	/* 	height: 200px; */
 	border-collapse: collapse;
 	margin-bottom: 20px;
 }
@@ -86,151 +94,176 @@ th, td {
 	font-size: 20px !important;
 }
 
-h5{
-	text-align: center; background-color: #1842B6;
-	color : white !important;
+h5 {
+	text-align: center;
+	background-color: #1842B6;
+	color: white !important;
 	border-top-left-radius: 18px;
 	border-top-right-radius: 18px;
 }
 
-.btn-group{
+.btn-group {
 	margin-left: 800px !important;
 	margin-bottom: 5px !important;
 }
+</style>
 
-		</style>
+</head>
 
-    </head>
+<body>
 
-    <body>
-    
-<!--	Navbar Start -->
-    <jsp:include page="../inc/top.jsp"/>
-<!--	Navbar End -->
+	<!--	Navbar Start -->
+	<jsp:include page="../inc/top.jsp" />
+	<!--	Navbar End -->
 
-<div class="container-fluid project py-5 my-5" style="height:100%;
-						margin-top: 0px !important;	padding: 0px !important;">
-	<div class="container py-5" style="padding: 0px !important;">
+	<div class="container-fluid project py-5 my-5"
+		style="height: 100%; margin-top: 0px !important; padding: 0px !important;">
+		<div class="container py-5" style="padding: 0px !important;">
 
-                
-<!-- ★★★★★★★★★★★★★★ 본문 여기에 넣으시면 됩니다 ★★★★★★★★★★★★★★ -->
 
-<div id="up" style="margin-top: 50px !important;">
-	<h2>프로젝트 찾기</h2>	
-</div>
+			<!-- ★★★★★★★★★★★★★★ 본문 여기에 넣으시면 됩니다 ★★★★★★★★★★★★★★ -->
 
-<div class="sidemenu">
-        <button type="button" class="button button-update" style="background-color: #1842B6;"><span onclick="location.href='${pageContext.request.contextPath}/board/searchCom'" style="color: white !important;">프로젝트 찾기</span></button>
-        <button type="button" class="button button-update" ><span onclick="location.href='${pageContext.request.contextPath}/board/searchFree'">프리랜서 찾기</span></button>
-</div><br>
+			<div id="up" style="margin-top: 50px !important;">
+				<h2>프로젝트 찾기</h2>
+			</div>
 
-<form action="${pageContext.request.contextPath}/board/searchCom" method="get">
-<div id="left2">
+			<div class="sidemenu">
+				<button type="button" class="button button-update"
+					style="background-color: #1842B6;">
+					<span
+						onclick="location.href='${pageContext.request.contextPath}/board/searchCom'"
+						style="color: white !important;">프로젝트 찾기</span>
+				</button>
+				<button type="button" class="button button-update">
+					<span
+						onclick="location.href='${pageContext.request.contextPath}/board/searchFree'">프리랜서
+						찾기</span>
+				</button>
+			</div>
+			<br>
 
-<h5>직종(분야)</h5>
-<label><input type="checkbox" name="field" value="1" checked>개발자</label><br>
-<label><input type="checkbox" name="field" value="2">퍼블리셔</label><br>
-<label><input type="checkbox" name="field" value="3">디자이너</label><br>
-<label><input type="checkbox" name="field" value="4">기타</label><br>
+			<form action="${pageContext.request.contextPath}/board/searchCom"
+				method="get">
+				<div id="left2">
 
-</div><br>
+					<h5>직종(분야)</h5>
+					<label><input type="checkbox" name="field" value="1"
+						checked>개발자</label><br> <label><input type="checkbox"
+						name="field" value="2">퍼블리셔</label><br> <label><input
+						type="checkbox" name="field" value="3">디자이너</label><br> <label><input
+						type="checkbox" name="field" value="4">기타</label><br>
 
-<div id="left3">
+				</div>
+				<br>
 
-<h5>지역</h5>
-<label><input type="checkbox" name="region" value="1" checked>전체</label><br>
-<label><input type="checkbox" name="region" value="2">서울특별시</label><br>
-<label><input type="checkbox" name="region" value="3">부산광역시</label><br>
-<label><input type="checkbox" name="region" value="4">인천광역시</label><br>
-<label><input type="checkbox" name="region" value="5">대전광역시</label><br>
-<label><input type="checkbox" name="region" value="6">대구광역시</label><br>
-<label><input type="checkbox" name="region" value="7">울산광역시</label><br>
-<label><input type="checkbox" name="region" value="8">광주광역시</label><br>
-<label><input type="checkbox" name="region" value="9">세종특별자치시</label><br>
-<label><input type="checkbox" name="region" value="10">경기도</label><br>
-<label><input type="checkbox" name="region" value="11">강원도</label><br>
-<label><input type="checkbox" name="region" value="12">충청북도</label><br>
-<label><input type="checkbox" name="region" value="13">충청남도</label><br>
-<label><input type="checkbox" name="region" value="14">경상북도</label><br>
-<label><input type="checkbox" name="region" value="15">경상남도</label><br>
-<label><input type="checkbox" name="region" value="16">전라북도</label><br>
-<label><input type="checkbox" name="region" value="17">전라남도</label><br>
-<label><input type="checkbox" name="region" value="18">제주특별자치도</label><br>
+				<div id="left3">
 
-</div>
+					<h5>지역</h5>
+					<label><input type="checkbox" name="region" value="1"
+						checked>전체</label><br> <label><input type="checkbox"
+						name="region" value="2">서울특별시</label><br> <label><input
+						type="checkbox" name="region" value="3">부산광역시</label><br> <label><input
+						type="checkbox" name="region" value="4">인천광역시</label><br> <label><input
+						type="checkbox" name="region" value="5">대전광역시</label><br> <label><input
+						type="checkbox" name="region" value="6">대구광역시</label><br> <label><input
+						type="checkbox" name="region" value="7">울산광역시</label><br> <label><input
+						type="checkbox" name="region" value="8">광주광역시</label><br> <label><input
+						type="checkbox" name="region" value="9">세종특별자치시</label><br> <label><input
+						type="checkbox" name="region" value="10">경기도</label><br> <label><input
+						type="checkbox" name="region" value="11">강원도</label><br> <label><input
+						type="checkbox" name="region" value="12">충청북도</label><br> <label><input
+						type="checkbox" name="region" value="13">충청남도</label><br> <label><input
+						type="checkbox" name="region" value="14">경상북도</label><br> <label><input
+						type="checkbox" name="region" value="15">경상남도</label><br> <label><input
+						type="checkbox" name="region" value="16">전라북도</label><br> <label><input
+						type="checkbox" name="region" value="17">전라남도</label><br> <label><input
+						type="checkbox" name="region" value="18">제주특별자치도</label><br>
 
-<div id="right">
-<div class="btn-group" role="group" aria-label="Basic example">
-<input type="hidden" name="search" value="${pageDTO.search}">
-<input type="hidden" name="select" value="${pageDTO.select}">
-  <label><button name="sort" value="sortM" type="submit" class="btn btn-primary" id="sortMatching" style="background-color: #1842B6 !important;">매칭순</button>
-  <button name="sort" value="sortR" type="submit" class="btn btn-primary" id="sortReadcount" style="background-color: #1842B6 !important;">조회순</button></label>
+				</div>
 
-</div>
-</form>
-	<table class="table">
-  <thead>
-    <tr>
-<th scope="col">글번호</th>
-<th scope="col">제목</th>
-<th scope="col">회사명</th>
-<th scope="col">등록일</th>
-<th scope="col">매칭횟수</th>
-<th scope="col">조회수</th>
-</tr>
-</thead>
+				<div id="right">
+					<div class="btn-group" role="group" aria-label="Basic example">
+						<input type="hidden" name="search" value="${pageDTO.search}">
+						<input type="hidden" name="select" value="${pageDTO.select}">
+						<label><button name="sort" value="sortM" type="submit"
+								class="btn btn-primary" id="sortMatching"
+								style="background-color: #1842B6 !important;">매칭순</button>
+							<button name="sort" value="sortR" type="submit"
+								class="btn btn-primary" id="sortReadcount"
+								style="background-color: #1842B6 !important;">조회순</button></label>
 
-    <c:forEach var="projectDTO" items="${projectBoardList }">
-    	<tr onclick="location.href='${pageContext.request.contextPath}/project/project?p_num=${projectDTO.p_num }'">
-    		<td>${projectDTO.p_num}</td>
-    	    <td class="left">${projectDTO.p_title}</td>
-    		<td>${projectDTO.name}</td>
-    		<td><fmt:formatDate value="${projectDTO.p_writedate}" pattern="yyyy.MM.dd"/></td>
-    		<td>${projectDTO.matching }</td>
-    		<td>${projectDTO.p_readcount}</td>
-    	</tr>
-    </c:forEach>
+					</div>
+			</form>
+			<table class="table">
+				<thead>
+					<tr>
+						<th scope="col">글번호</th>
+						<th scope="col">제목</th>
+						<th scope="col">회사명</th>
+						<th scope="col">등록일</th>
+						<th scope="col">매칭횟수</th>
+						<th scope="col">조회수</th>
+					</tr>
+				</thead>
 
-</table>
-	<form action="${pageContext.request.contextPath}/board/searchCom" method="get">
-	<select name="select">
-	<option value="p_title" selected>제목</option>
-	<option value="p_content">내용</option>
-	<option value="name123">회사명</option>
-	</select>
-	<input type="text" class="search" name="search">
-	<input type="submit" value="검색" class="btn btn-primary" style="background-color: #1842B6 !important;">
-	</form>
-	
-<div id="page_control">
-<c:if test="${pageDTO.startPage > pageDTO.pageBlock}">
+				<c:forEach var="projectDTO" items="${projectBoardList }">
+					<tr
+						onclick="location.href='${pageContext.request.contextPath}/project/project?p_num=${projectDTO.p_num }'">
+						<td>${projectDTO.p_num}</td>
+						<td class="left">${projectDTO.p_title}</td>
+						<td>${projectDTO.name}</td>
+						<td><fmt:formatDate value="${projectDTO.p_writedate}"
+								pattern="yyyy.MM.dd" /></td>
+						<td>${projectDTO.matching }</td>
+						<td>${projectDTO.p_readcount}</td>
+					</tr>
+				</c:forEach>
 
-	<a href="${pageContext.request.contextPath}/board/searchCom?pageNum=${pageDTO.startPage - pageDTO.pageBlock}&search=${pageDTO.search}&sort=${pageDTO.sort}&select=${pageDTO.select}">[이전]</a>
+			</table>
+			<form action="${pageContext.request.contextPath}/board/searchCom"
+				method="get">
+				<select name="select">
+					<option value="p_title" selected>제목</option>
+					<option value="p_content">내용</option>
+					<option value="name123">회사명</option>
+				</select> <input type="text" class="search" name="search"> <input
+					type="submit" value="검색" class="btn btn-primary"
+					style="background-color: #1842B6 !important;">
+			</form>
 
-</c:if>
+			<div id="page_control">
+				<c:if test="${pageDTO.startPage > pageDTO.pageBlock}">
 
-<c:forEach var="i" begin="${pageDTO.startPage}" end="${pageDTO.endPage}" step="1">
+					<a
+						href="${pageContext.request.contextPath}/board/searchCom?pageNum=${pageDTO.startPage - pageDTO.pageBlock}&search=${pageDTO.search}&sort=${pageDTO.sort}&select=${pageDTO.select}">[이전]</a>
 
-	<a href="${pageContext.request.contextPath}/board/searchCom?pageNum=${i}&search=${pageDTO.search}&sort=${pageDTO.sort}&select=${pageDTO.select}">${i}</a>
+				</c:if>
 
-</c:forEach>
+				<c:forEach var="i" begin="${pageDTO.startPage}"
+					end="${pageDTO.endPage}" step="1">
 
-<c:if test="${pageDTO.pageCount > pageDTO.endPage}">
+					<a
+						href="${pageContext.request.contextPath}/board/searchCom?pageNum=${i}&search=${pageDTO.search}&sort=${pageDTO.sort}&select=${pageDTO.select}">${i}</a>
 
-	<a href="${pageContext.request.contextPath}/board/searchCom?pageNum=${pageDTO.startPage + pageDTO.pageBlock}&search=${pageDTO.search}&sort=${pageDTO.sort}&select=${pageDTO.select}">[다음]</a>
+				</c:forEach>
 
-</c:if>
-</div>
-</div>
+				<c:if test="${pageDTO.pageCount > pageDTO.endPage}">
+
+					<a
+						href="${pageContext.request.contextPath}/board/searchCom?pageNum=${pageDTO.startPage + pageDTO.pageBlock}&search=${pageDTO.search}&sort=${pageDTO.sort}&select=${pageDTO.select}">[다음]</a>
+
+				</c:if>
+			</div>
+		</div>
 
 	</div>
-</div>
+	</div>
 
-<!--	Footer Start -->
-    <jsp:include page="../inc/bottom.jsp"/>
-<!--	Footer End -->
+	<!--	Footer Start -->
+	<jsp:include page="../inc/bottom.jsp" />
+	<!--	Footer End -->
 
-<script type="text/javascript">
+	<script type="text/javascript">
 // $(function(){
 // 	$('#sortMatching').click(function(){
 // 		var arr1 = [${projectDTO.matching }];
@@ -244,6 +277,6 @@ h5{
 // 	});
 // });
 </script>
-    </body>
+</body>
 
 </html>

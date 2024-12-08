@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
 <html lang="ko">
@@ -10,11 +10,11 @@
 </head>
 <body onload="cls()">
 
-<script>
-function cls(){
-	window.close();
-}
-</script>
+	<script>
+		function cls() {
+			window.close();
+		}
+	</script>
 
 </body>
 </html>
