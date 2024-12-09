@@ -198,7 +198,7 @@ p {
 
 	<form action="${pageContext.request.contextPath}/inc/insertMessagePro"
 		id="join" name="msg" method="post">
-		<input type="hidden" name="c_num" value="${chatDTO.c_num}" readonly>
+		<input type="hidden" name="c_num" id="c_num" value="${chatDTO.c_num}" readonly>
 		<input type="hidden" name="id" class="id" value="${sessionScope.id}"
 			readonly> <input type="text" id="c_content" name="c_content"
 			maxlength="1000" required style="width: 400px; margin-left: 20%;">
@@ -213,100 +213,13 @@ p {
 			window.close();
 		}
 		
-		<script>
-		var cNum = "${chatDTO.c_num}";
-		var sessionId = "${sessionScope.id}";
-		var socket = new WebSocket("ws://" + window.location.host + "/yourWebSocketEndpoint?chatId=" + cNum);  // 동적 URL 설정
-
-		let isSocketOpen = false;
-
-		// WebSocket 연결이 열렸을 때
-		socket.onopen = function() {
-			console.log("WebSocket 연결이 열렸습니다.");
-			isSocketOpen = true;
+		// 페이지가 로드될 때 스크롤을 가장 아래로 이동하고, 메시지 입력 필드에 포커스를 맞춥니다.
+		window.onload = function() {
+		    window.scrollTo(0, document.body.scrollHeight);
+		    document.querySelector('input[name="c_content"]').focus();
 		};
 
-		// WebSocket이 메시지를 수신했을 때
-		socket.onmessage = function(event) {
-			var message = JSON.parse(event.data);  // 서버에서 받은 메시지
-			displayMessage(message);  // 화면에 메시지 표시
-		};
-
-		// WebSocket 연결이 닫혔을 때
-		socket.onclose = function() {
-			console.log("WebSocket 연결이 닫혔습니다.");
-			isSocketOpen = false;
-		};
-
-		// WebSocket 연결에서 오류 발생 시
-		socket.onerror = function(error) {
-			console.error("WebSocket 오류 발생:", error);
-		};
-
-		// 페이지 로드 시 이전 메시지 로드
-		$(document).ready(function() {
-			$.ajax({
-				url: "${pageContext.request.contextPath}/getMessage",  // 채팅 메시지 가져오는 서버 URL
-				method: "GET",
-				data: { c_num: cNum },
-				success: function(data) {
-					data.messages.forEach(function(message) {
-						displayMessage(message);
-					});
-				},
-				error: function() {
-					console.error("채팅 메시지 로드 실패");
-				}
-			});
-		});
-
-		// 메시지 화면에 표시하는 함수
-		function displayMessage(message) {
-			var chatContainer = $('#chatContainer');
-			var messageDiv = '';
-
-			if (message.id === sessionId) {
-				messageDiv = `
-					<div class="container darker">
-						<p style="text-align: right;">${message.id}님</p>
-						<p style="text-align: right;">${message.c_content}</p>
-						<span class="time-right">${message.c_time}</span><br>
-					</div>
-				`;
-			} else {
-				messageDiv = `
-					<div class="container">
-						<p>${message.id}님</p>
-						<p>${message.c_content}</p>
-						<span class="time-left">${message.c_time}</span><br>
-					</div>
-				`;
-			}
-			chatContainer.append(messageDiv);  // 메시지 추가
-			chatContainer.scrollTop(chatContainer[0].scrollHeight);  // 스크롤을 맨 아래로 내림
-		}
-
-		// 메시지 전송 처리
-		$("#sendMessage").click(function() {
-			var messageContent = $('#c_content').val();
-			if (messageContent.trim() === "") return;
-
-			if (isSocketOpen) {
-				var message = {
-					id: sessionId,
-					c_content: messageContent,
-					c_num: cNum,
-					c_time: new Date().toLocaleTimeString()
-				};
-				socket.send(JSON.stringify(message));  // 메시지 전송
-				$('#c_content').val('');  // 입력란 비우기
-			} else {
-				alert("서버와 연결이 끊어졌습니다.");
-			}
-		});
-		
-	</script>
-
+</script>
 
 
 </body>

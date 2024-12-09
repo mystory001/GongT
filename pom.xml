@@ -97,22 +97,6 @@
 		</dependency>
 		<!-- 데이터를 json 형태로 변경하는 프로그램 jackson-databind 설치 끝 -->
 
-		<!-- 채팅을 위한 웹소켓 -->
-			<!-- Spring WebSocket 의존성 추가 -->
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-websocket</artifactId>
-				<version>${org.springframework-version}</version> <!-- 사용 중인 Spring 버전에 맞게 조정 -->
-			</dependency>
-
-			<!-- STOMP 및 WebSocket 의존성 -->
-			<dependency>
-				<groupId>org.springframework</groupId>
-				<artifactId>spring-messaging</artifactId>
-				<version>${org.springframework-version}</version> <!-- 사용 중인 Spring 버전에 맞게 조정 -->
-			</dependency>
-		<!-- 웹소켓 끝 -->
-
 		<!-- AspectJ -->
 		<dependency>
 			<groupId>org.aspectj</groupId>

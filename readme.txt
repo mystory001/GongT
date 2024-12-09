@@ -12,7 +12,7 @@
 241209
 1. 쪽지함 => 채팅 목록 수정(보낸사람과 받은사람이 같을 경우 목록에 하나만 나타나며, 최종적으로 받은내용만)
 2. 첨부파일 위치 변경(/usr/local/tomcat/webapps/GongT1/resources/upload => C:\\Users\\ITWILL\\git\\GonT\\GongT1\\src\\main\\webapp\\resources\\upload)
-3. 채팅 ajax 구현 실패 -> 웹 소켓을 이용해서 실시간 채팅 구현(진행중)
+3. 웹 소켓을 이용한 채팅 => 실패... ajax를 이용해서 구현
 
 241208
 일부 코드 수정

@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
 import com.itwillbs.dao.ChattingDAO;
@@ -17,9 +16,6 @@ public class ChattingService {
 
 	@Inject
 	private ChattingDAO chattingDAO;
-	
-	@Inject
-	private SimpMessagingTemplate messagingTemplate; //SimpMessaginTemplate을 통해 WebSocket 메시지를 전송할 수 있도록 주입. 이 객체는 WebSocket 메시지를 브로드캐스트 하는 데 사용
 	
 	// 채팅방 C 리스트 가져오기
 	public List<ChatDTO> chattingBangC(String id) {

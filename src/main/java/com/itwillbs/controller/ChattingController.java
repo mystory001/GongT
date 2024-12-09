@@ -9,24 +9,12 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.messaging.converter.MappingJackson2MessageConverter;
-import org.springframework.messaging.converter.MessageConverter;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.invocation.HandlerMethodArgumentResolver;
-import org.springframework.messaging.handler.invocation.HandlerMethodReturnValueHandler;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
-import org.springframework.messaging.simp.config.ChannelRegistration;
-import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
-import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
-import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
-import org.springframework.web.socket.config.annotation.WebSocketTransportRegistration;
 
 import com.itwillbs.domain.ChatDTO;
 
@@ -37,20 +25,9 @@ import com.itwillbs.service.ChattingService;
 @Controller
 public class ChattingController {
 	
-	/* 241209 WebSocket
-	 * 1. WebSocket 설정 : WebSocket 설정을 포함하여 STOMP 메시징을 사용할 수 있도록 @EnableWebSocketMessageBroker와 관련 설정을 추가
-	 * 2. WebSocket 엔드 포인트 추가 : 클라이언트와 연결되는 엔드포인트(/chatting)을 설정
-	 * 3. 실시간 메시지 전송 : SimpMessaginTemplate을 사용하여 클라이언트에게 실시간으로 메시지를 전달하는 기능 추가
-	 */
-	
-
 	// 채팅 서비스 객체를 주입받음(채팅과 관련된 비즈니스 로직 처리)
 	@Inject
 	ChattingService chattingService;
-	
-	// 메시지 전송을 위한 SimpMessagingTemplate 객체(WebSocket 메시지 전송)
-	@Inject // @Autowired를 사용해도 됨
-	private SimpMessagingTemplate messagingTemplate; // WebSocket 메시지 송수신을 위한 객체. 클라이언트에게 실시간으로 메시지를 전달하는 데 사용
 	
 	// 채팅방
 	@GetMapping("/inc/chatting")
@@ -83,8 +60,6 @@ public class ChattingController {
 
 	    chattingService.insertMessage(messageDTO); // 메시지 DB에 저장
 
-	    messagingTemplate.convertAndSend("/topic/messages/" + messageDTO.getC_num(), messageDTO); // 실시간 메시지 전송(WebSocket으로 전송)
-	    
 	    //응답 데이터를 Map 형태로 변환
 	    Map<String, Object> response = new HashMap<>();
 	    response.put("status", "success");  // 상태
@@ -222,4 +197,3 @@ public class ChattingController {
 	}
 	
 }
-
