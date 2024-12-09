@@ -105,30 +105,37 @@ tr:hover {
 								style="font-size: 20px !important; color: black; text-align: center !important;">보낸사람</th>
 
 							<th
-								style="font-size: 20px !important; color: black; text-align: center !important;">내용</th>
+								style="font-size: 20px !important; color: black; text-align: center !important;">받은내용</th>
 							<th
 								style="font-size: 20px !important; color: black; text-align: center !important;">시간</th>
 							<th
 								style="font-size: 20px !important; color: black; text-align: center !important;">매칭
 								여부</th>
+							<th
+								style="font-size: 20px !important; color: black; text-align: center !important;">전체 쪽지
+								</th>
 						</tr>
+						<c:set var="lastSender" value="" />
 						<c:forEach var="chattingDTO" items="${ChattingDTOListC}">
-							<tr>
+							<c:if test="${lastSender == '' || chattingDTO.fid != lastSender.fid || chattingDTO.c_time > lastSender.c_time}">
+								<!-- 같은 사람끼리의 메시지라면 처리 -->
+								<tr>
+									<td style="text-align: center !important;">${chattingDTO.fid}</td>
+									<td style="text-align: center !important;">${chattingDTO.c_content}</td>
+									<td style="text-align: center !important;">${chattingDTO.c_time}</td>
 
-								<td style="text-align: center !important;">${chattingDTO.fid}</td>
-								<td style="text-align: center !important;">${chattingDTO.c_content}</td>
-								<td style="text-align: center !important;">${chattingDTO.c_time}</td>
-
-								<c:if test="${chattingDTO.c_matching eq 0}">
-									<td style="text-align: center !important;">미 매칭</td>
-								</c:if>
-								<c:if test="${chattingDTO.c_matching eq 1}">
-									<td style="text-align: center !important;">매칭 완료</td>
-								</c:if>
-								<td style="text-align: center !important;"><button
-										onclick="popUp(${chattingDTO.c_num});">전체 쪽지</button></td>
-
-							</tr>
+									<c:if test="${chattingDTO.c_matching eq 0}">
+										<td style="text-align: center !important;">미매칭</td>
+									</c:if>
+									<c:if test="${chattingDTO.c_matching eq 1}">
+										<td style="text-align: center !important;">매칭 완료</td>
+									</c:if>
+									<td style="text-align: center !important;">
+										<button onclick="popUp(${chattingDTO.c_num});"><b>확인</b></button>
+									</td>
+								</tr>
+								<c:set var="lastSender" value="${chattingDTO}" /> <!-- lastSender 업데이트 -->
+							</c:if>
 						</c:forEach>
 					</table>
 

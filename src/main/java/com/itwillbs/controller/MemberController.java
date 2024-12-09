@@ -316,8 +316,9 @@ public class MemberController {
 		System.out.println("MemberController mypageCompany5()");
 		String id = (String) session.getAttribute("id");
 		System.out.println(id);
-		List<ChatDTO> ChattingDTOListC = chattingService.ChattingBangC(id);
-		model.addAttribute("ChattingDTOListC", ChattingDTOListC);
+		// 서비스 호출하여 데이터 가져오기
+		List<ChatDTO> chattingDTOListC = chattingService.chattingBangC(id);
+		model.addAttribute("ChattingDTOListC", chattingDTOListC);
 		return "mypageCompany/mypageCompany5";
 	}
 
@@ -373,8 +374,8 @@ public class MemberController {
 
 		String id = (String) session.getAttribute("id");
 		System.out.println(id);
-		List<ChatDTO> ChattingDTOListF = chattingService.ChattingBangF(id);
-		model.addAttribute("ChattingDTOListF", ChattingDTOListF);
+		List<ChatDTO> chattingDTOListF = chattingService.chattingBangF(id);
+		model.addAttribute("chattingDTOListF", chattingDTOListF);
 		return "mypageFreelancer/mypageFreelancer5";
 	}
 

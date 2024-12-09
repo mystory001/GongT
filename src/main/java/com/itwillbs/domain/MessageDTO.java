@@ -4,11 +4,11 @@ import java.sql.Timestamp;
 
 public class MessageDTO {
 
-	private int cc_num;
-	private int c_num;
+	private int cc_num; // 채팅 내용 번호(PK)
+	private int c_num; // 채팅 번호
 	private String id;
-	private String c_content;
-	private Timestamp c_time;
+	private String c_content; // 채팅 내용
+	private Timestamp c_time; // 채팅 시간
 	
 	public int getCc_num() {
 		return cc_num;
