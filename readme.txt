@@ -7,7 +7,10 @@
 1) 팀원 간 코드 작성 방법의 차이가 존재하여 작성된 코드가 일정하지 않음. 프로그램 시작 전에 코드 작성 규칙을 만드는 것이 가시성이나 추후 유지보수에 유리할 것으로 보임
 2) 코드 작성 방법이 달라 코드를 확인할 때 어려움을 겪음. 주석을 작성하여 누가 작성하였으며, 왜 그렇게 했는지에 대한 짧은 생각을 작성해두면 학습하는데 도움이 될 것으로 보임
 - 팀 프로젝트 깃 : https://github.com/MaomiMaru/GonT0223/tree/master/GongT1
-
+- 요구사항 명세서 : https://drive.google.com/file/d/119EkHxu9zSSLpOdcVmJvkMM1zfnXAkww/view?pli=1
+- 중요기능 세부 요구사항 명세서 : https://docs.google.com/spreadsheets/d/1RHEeaeb-gIkdA_vm7m96bHaaWu8eBLAs/edit?pli=1&gid=1463476677#gid=1463476677
+- 테이블 정의서 : https://docs.google.com/spreadsheets/d/19fxURHPvwkVdk63c8LweQPBBngY53Ui8/edit?gid=1086071801#gid=1086071801
+- ERD : https://drive.google.com/file/d/1RdICU9xdX0o7PFISii9RqLX77ZSDLmUB/view
 =======================================================================================================
 241210
 1. 웹 소켓을 이용한 채팅 구현 => 실패 => 코드 재수정(완료) - pom.xml, web.xml, views-inc-chatting, spring - root-context, spring - appServlet - servlet-context.xml 등
