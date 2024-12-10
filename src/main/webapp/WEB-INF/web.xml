@@ -50,23 +50,4 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
-	<!-- 채팅 -->
-	<!-- Spring WebSocket 설정을 위한 리스너 추가 -->
-	<listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener
-		</listener-class>
-	</listener>
-
-	<!-- WebSocket 설정을 위한 ServletContext 설정 -->
-	<servlet>
-		<servlet-name>webSocketServlet</servlet-name>
-		<servlet-class>org.springframework.web.socket.server.support.WebSocketHttpRequestHandler
-		</servlet-class>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-
-	<servlet-mapping>
-		<servlet-name>webSocketServlet</servlet-name>
-		<url-pattern>/inc/chatting</url-pattern> <!-- WebSocket 엔드포인트 매핑 -->
-	</servlet-mapping>
 </web-app>

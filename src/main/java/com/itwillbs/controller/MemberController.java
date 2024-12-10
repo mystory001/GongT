@@ -318,7 +318,7 @@ public class MemberController {
 		System.out.println(id);
 		// 서비스 호출하여 데이터 가져오기
 		List<ChatDTO> chattingDTOListC = chattingService.chattingBangC(id);
-		model.addAttribute("ChattingDTOListC", chattingDTOListC);
+		model.addAttribute("chattingDTOListC", chattingDTOListC);
 		return "mypageCompany/mypageCompany5";
 	}
 

@@ -8,12 +8,11 @@
 <meta charset="UTF-8">
 <title>공티 마이페이지</title>
 <script type="text/javascript">
-
 	function popUp(num){
 		// open("경로", "이름", "옵션")
-		window.open("${pageContext.request.contextPath}/inc/chatting?c_num="+num, "", "width=800px, height=700, left=600px, top=150px");
+		window.open("${pageContext.request.contextPath}/inc/chatting?c_num=" + num, "", "width=800px, height=700, left=600px, top=150px");
+		console.log(num);
 	}
-	
 </script>
 
 <link
@@ -112,12 +111,13 @@ tr:hover {
 								style="font-size: 20px !important; color: black; text-align: center !important;">매칭
 								여부</th>
 							<th
-								style="font-size: 20px !important; color: black; text-align: center !important;">전체 쪽지
-								</th>
+								style="font-size: 20px !important; color: black; text-align: center !important;">전체
+								쪽지</th>
 						</tr>
 						<c:set var="lastSender" value="" />
-						<c:forEach var="chattingDTO" items="${ChattingDTOListC}">
-							<c:if test="${lastSender == '' || chattingDTO.fid != lastSender.fid || chattingDTO.c_time > lastSender.c_time}">
+						<c:forEach var="chattingDTO" items="${chattingDTOListC}">
+							<c:if
+								test="${lastSender == '' || chattingDTO.fid != lastSender.fid || chattingDTO.c_time > lastSender.c_time}">
 								<!-- 같은 사람끼리의 메시지라면 처리 -->
 								<tr>
 									<td style="text-align: center !important;">${chattingDTO.fid}</td>
@@ -131,10 +131,13 @@ tr:hover {
 										<td style="text-align: center !important;">매칭 완료</td>
 									</c:if>
 									<td style="text-align: center !important;">
-										<button onclick="popUp(${chattingDTO.c_num});"><b>확인</b></button>
+										<button onclick="popUp(${chattingDTO.c_num});">
+											<b>확인</b>
+										</button>
 									</td>
 								</tr>
-								<c:set var="lastSender" value="${chattingDTO}" /> <!-- lastSender 업데이트 -->
+								<c:set var="lastSender" value="${chattingDTO}" />
+								<!-- lastSender 업데이트 -->
 							</c:if>
 						</c:forEach>
 					</table>

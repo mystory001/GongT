@@ -9,6 +9,9 @@
 - 팀 프로젝트 깃 : https://github.com/MaomiMaru/GonT0223/tree/master/GongT1
 
 =======================================================================================================
+241210
+1. 웹 소켓을 이용한 채팅 구현 => 실패 => 코드 재수정
+
 241209
 1. 쪽지함 => 채팅 목록 수정(보낸사람과 받은사람이 같을 경우 목록에 하나만 나타나며, 최종적으로 받은내용만)
 2. 첨부파일 위치 변경(/usr/local/tomcat/webapps/GongT1/resources/upload => C:\\Users\\ITWILL\\git\\GonT\\GongT1\\src\\main\\webapp\\resources\\upload)

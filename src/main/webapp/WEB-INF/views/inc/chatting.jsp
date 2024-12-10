@@ -2,11 +2,14 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
+
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>공티 채팅</title>
+
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
 <style>
 #chat {
 	width: 40%;
@@ -110,30 +113,8 @@ p {
 </style>
 </head>
 <body>
-
-
-
 	<jsp:include page="top_chat.jsp" />
 
-
-	<!-- <div id="chat"> -->
-	<!-- <table> -->
-	<!--   <tr style="background-color: transparent !important;"> -->
-	<!--     <th>대화상대</th> -->
-
-	<!--     <th>시간</th> -->
-	<!--   </tr> -->
-	<%-- <c:forEach var="ChattingDTO" items="${ChattingDTOList2}"> --%>
-	<!--  <tr> -->
-	<%--     <th>${ChattingDTO.sid}</th> --%>
-
-	<%--     <th>${ChattingDTO.c_time}</th> --%>
-	<!--   </tr> -->
-	<%-- </c:forEach> --%>
-
-	<!-- </table> -->
-
-	<!-- </div> -->
 	<form action="${pageContext.request.contextPath}/inc/updateMatching"
 		method="post">
 
@@ -152,7 +133,6 @@ p {
 			</div>
 		</c:if>
 	</form>
-
 
 	<c:if test="${sessionScope.id eq chatDTO.fid}">
 		<c:forEach var="chattingDTO" items="${messageList}">
@@ -198,7 +178,7 @@ p {
 
 	<form action="${pageContext.request.contextPath}/inc/insertMessagePro"
 		id="join" name="msg" method="post">
-		<input type="hidden" name="c_num" id="c_num" value="${chatDTO.c_num}" readonly>
+		<input type="hidden" name="c_num" value="${chatDTO.c_num}" readonly>
 		<input type="hidden" name="id" class="id" value="${sessionScope.id}"
 			readonly> <input type="text" id="c_content" name="c_content"
 			maxlength="1000" required style="width: 400px; margin-left: 20%;">
@@ -215,11 +195,11 @@ p {
 		
 		// 페이지가 로드될 때 스크롤을 가장 아래로 이동하고, 메시지 입력 필드에 포커스를 맞춥니다.
 		window.onload = function() {
-		    window.scrollTo(0, document.body.scrollHeight);
-		    document.querySelector('input[name="c_content"]').focus();
+			window.scrollTo(0, document.body.scrollHeight);
+			document.querySelector('input[name="c_content"]').focus();
 		};
+	</script>
 
-</script>
 
 
 </body>

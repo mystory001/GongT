@@ -118,6 +118,6 @@
 		src="${pageContext.request.contextPath}/resources/lib/owlcarousel/owl.carousel.min.js"></script>
 
 	<!-- Template Javascript -->
-	<script src="${pageContext.request.contextPath}/js/main.js"></script>
+<%-- 	<script src="${pageContext.request.contextPath}/js/main.js"></script> --%>
 
 </footer>
