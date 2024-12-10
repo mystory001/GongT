@@ -232,7 +232,7 @@ button {
 						<input type="hidden" name="fid" value="${sessionScope.id}">
 						<input type="hidden" name="cid" value="${memberDTO.id}">
 						<button type="submit" class="button button-update">
-							<span>공T쪽지 보내기</span>
+							<span>채팅하기</span>
 
 						</button>
 

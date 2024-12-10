@@ -137,7 +137,7 @@ body {
 								</c:if>
 								<a
 									href="${pageContext.request.contextPath}/mypageFreelancer/mypageFreelancer5"
-									class="notification"> <span>쪽지함</span> <!--   <span class="badge">3</span> -->
+									class="notification"> <span>채팅</span> <!--   <span class="badge">3</span> -->
 								</a>
 							</c:if>
 
@@ -148,7 +148,7 @@ body {
 									style="font-size: 15px; display: inline; color: white">마이페이지</a>
 								<a
 									href="${pageContext.request.contextPath}/mypageCompany/mypageCompany5"
-									class="notification"> <span>쪽지함</span> <!--   <span class="badge">3</span> -->
+									class="notification"> <span>채팅</span> <!--   <span class="badge">3</span> -->
 								</a>
 							</c:if>
 

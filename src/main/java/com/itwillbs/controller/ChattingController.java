@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.domain.ChatDTO;
 
@@ -33,6 +35,7 @@ public class ChattingController {
 
 		return "/inc/chatting";
 	}
+	
 
 	// 채팅 메세지
 	@PostMapping("/inc/insertMessagePro")
@@ -72,6 +75,22 @@ public class ChattingController {
 	public String close() {
 		System.out.println("close()");
 		return "/inc/close";
+	}
+	
+	//채팅 ajax
+	@PostMapping("/inc/chat")
+	@ResponseBody
+	public String chatMessage(@RequestBody MessageDTO messageDTO) {
+		System.out.println("ChattingController chatMessage()");
+		try {
+			chattingService.insertMessage(messageDTO);
+			System.out.println("메시지 보내기 성공");
+			return "success";
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("메시지 보내기 실패");
+			return "error";
+		}
 	}
 
 }

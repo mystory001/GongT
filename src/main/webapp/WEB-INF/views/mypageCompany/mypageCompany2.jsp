@@ -68,7 +68,7 @@ tr:hover {
 			</button>
 			<button type="button" class="button button-update"
 				onclick="location.href='${pageContext.request.contextPath}/mypageCompany/mypageCompany5'">
-				<span>쪽지 내역</span>
+				<span>채팅 내역</span>
 			</button>
 			<button type="button" class="button button-update"
 				onclick="location.href='${pageContext.request.contextPath}/mypageCompany/mypageCompany6'">

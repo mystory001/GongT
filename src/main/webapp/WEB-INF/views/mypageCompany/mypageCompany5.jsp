@@ -74,7 +74,7 @@ tr:hover {
 			</button>
 			<button type="button" class="button button-update"
 				style="background-color: #1842B6;">
-				<span style="color: white;">쪽지 내역</span>
+				<span style="color: white;">채팅 내역</span>
 			</button>
 			<button type="button" class="button button-update"
 				onclick="location.href='${pageContext.request.contextPath}/mypageCompany/mypageCompany6'">
@@ -144,9 +144,6 @@ tr:hover {
 
 
 				</fieldset>
-
-
-
 
 			</div>
 		</div>

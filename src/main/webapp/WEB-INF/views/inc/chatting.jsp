@@ -112,6 +112,21 @@ p {
 }
 </style>
 </head>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+// 페이지 새로고침 함수
+function refreshPage() {
+    setInterval(() => {
+        location.reload();
+    }, 10000); // 10초마다 페이지 새로고침
+}
+
+// 페이지가 로드되었을 때 자동 새로고침 시작
+window.onload = function() {
+    refreshPage();
+}
+</script>
 <body>
 	<jsp:include page="top_chat.jsp" />
 
@@ -187,20 +202,52 @@ p {
 	</form>
 
 
-
 	<script>
-		function cls() {
-			window.close();
-		}
-		
-		// 페이지가 로드될 때 스크롤을 가장 아래로 이동하고, 메시지 입력 필드에 포커스를 맞춥니다.
-		window.onload = function() {
-			window.scrollTo(0, document.body.scrollHeight);
-			document.querySelector('input[name="c_content"]').focus();
-		};
-	</script>
+$(document).ready(function() {
+    function loadMessages() {
+        const c_num = $('input[name="c_num"]').val(); // 채팅방 번호
 
+        $.ajax({
+            type: 'GET',
+            url: '${pageContext.request.contextPath}/inc/chatting',
+            data: { c_num },
+            success: function(response) {
+                const newMessages = Array.isArray(response) ? response : []; // 서버에서 반환된 새로운 메시지 목록
+                const chatArea = $('#chat');
+                const currentMessages = chatArea.find('.container'); // 현재 채팅창에 있는 메시지들
 
+                // 필터링된 새로운 메시지 목록
+                newMessages.forEach(message => {
+                    if (!currentMessages.toArray().some(
+                        elem => $(elem).find('.time-left').text() === message.c_time || $(elem).find('.time-right').text() === message.c_time)) {
+                        const messageHtml = message.id === $('input[name="id"]').val()
+                            ? `<div class="container darker">
+                                  <p style="text-align: right;">${message.id}님</p>
+                                  <p style="text-align: right;">${message.c_content}</p>
+                                  <span class="time-right">${message.c_time}</span>
+                               </div>`
+                            : `<div class="container">
+                                  <p>${message.id}님</p>
+                                  <p>${message.c_content}</p>
+                                  <span class="time-left">${message.c_time}</span>
+                               </div>`;
+                        chatArea.append(messageHtml);
+                    }
+                });
+
+                window.scrollTo(0, document.body.scrollHeight); // 화면 스크롤을 아래로 이동
+            },
+            error: function(xhr, status, error) {
+                console.error('메시지 로드 중 오류 발생:', error);
+            }
+        });
+    }
+
+    setInterval(loadMessages, 10000); // 주기적으로 메시지 목록 갱신 (10초마다 실행)
+
+    loadMessages(); // 초기 메시지 로드 실행
+});
+</script>
 
 </body>
 </html>
