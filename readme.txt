@@ -12,6 +12,9 @@
 - 테이블 정의서 : https://docs.google.com/spreadsheets/d/19fxURHPvwkVdk63c8LweQPBBngY53Ui8/edit?gid=1086071801#gid=1086071801
 - ERD : https://drive.google.com/file/d/1RdICU9xdX0o7PFISii9RqLX77ZSDLmUB/view
 =======================================================================================================
+241211
+1. 241210의 2번 => X, 자바스크립트를 이용해서 채팅 구현 => 사용자 편의성 증가. 글을 작성하고 있을 때는 새로고침이 되지 않게 수정
+
 241210
 1. 웹 소켓을 이용한 채팅 구현 => 실패 => 코드 재수정(완료) - pom.xml, web.xml, views-inc-chatting, spring - root-context, spring - appServlet - servlet-context.xml 등
 2. ajax와 js를 이용한 채팅 구현

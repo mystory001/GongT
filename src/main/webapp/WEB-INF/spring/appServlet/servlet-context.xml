@@ -50,13 +50,13 @@
 <!-- 	채팅 -->
 
 	
-<beans:bean id="uploadPath" class="java.lang.String">
-		<beans:constructor-arg value="C:\\Users\\ITWILL\\git\\GonT\\GongT1\\src\\main\\webapp\\resources\\upload"></beans:constructor-arg>
-	</beans:bean>
-<!-- MobaXterm에서 pwd했을 때 경로 -->
 <!-- <beans:bean id="uploadPath" class="java.lang.String"> -->
-<!-- 		<beans:constructor-arg value="/usr/local/tomcat/webapps/GongT1/resources/upload"></beans:constructor-arg> -->
+<!-- 		<beans:constructor-arg value="C:\\Users\\ITWILL\\git\\GonT\\GongT1\\src\\main\\webapp\\resources\\upload"></beans:constructor-arg> -->
 <!-- 	</beans:bean> -->
+<!-- MobaXterm에서 pwd했을 때 경로 -->
+<beans:bean id="uploadPath" class="java.lang.String">
+		<beans:constructor-arg value="/usr/local/tomcat/webapps/GongT1/resources/upload"></beans:constructor-arg>
+	</beans:bean>
 
 
 
