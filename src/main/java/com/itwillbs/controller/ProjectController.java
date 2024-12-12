@@ -18,17 +18,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.ProjectDTO;
-import com.itwillbs.domain.ResumeDTO;
 import com.itwillbs.domain.Scrap_projectDTO;
-import com.itwillbs.domain.Scrap_resumeDTO;
-import com.itwillbs.service.MemberService;
 import com.itwillbs.service.ProjectService;
-import com.itwillbs.service.ResumeService;
 
 @Controller
 public class ProjectController {
@@ -36,10 +31,8 @@ public class ProjectController {
 	@Inject
 	private ProjectService projectService;
 
-	
 	@javax.annotation.Resource(name = "uploadPath")
 	private String uploadPath;
-	
 
 	@RequestMapping(value = "/project/project", method = RequestMethod.GET)
 	public String project1(HttpSession session, HttpServletRequest request, Model model) {
@@ -49,94 +42,91 @@ public class ProjectController {
 		model.addAttribute("memberDTO", projectService.getMember(p_num));
 		model.addAttribute("projectDTO", projectDTO);
 		return "project/project";
-	}//project()
-	
-	
+	}
+
 	@GetMapping("/project/projectWrite")
 	public String projectWrite() {
 		return "project/projectWrite";
-	}//projectWrite()
-	
+	}
+
 	@GetMapping("/board/searchCom")
 	public String project(HttpServletRequest request, PageDTO pageDTO, Model model) {
-		//검색어 가져오기(notice submit에서 name = "search")
+		// 검색어 가져오기(notice submit에서 name = "search")
 		String search = request.getParameter("search");
 		String select = request.getParameter("select");
 		String sort = request.getParameter("sort");
-		
+
 		// 한화면에 보여줄 글개수 설정
 		int pageSize = 5;
 		// pageNum 에 파라미터값을 가져오기
 		String pageNum = request.getParameter("pageNum");
 		// pageNum이 없으면 "1"로 설정
-		if(pageNum == null) {
+		if (pageNum == null) {
 			pageNum = "1";
 		}
 		// pageNum => 정수형 변경
 		int currentPage = Integer.parseInt(pageNum);
-		// pageDTO 저장 
+		// pageDTO 저장
 		pageDTO.setPageSize(pageSize);
 		pageDTO.setPageNum(pageNum);
 		pageDTO.setCurrentPage(currentPage);
-		//검색어 추가
+		// 검색어 추가
 		pageDTO.setSearch(search);
-		//select 추가
+		// select 추가
 		pageDTO.setSelect(select);
-		//sort 추가
+		// sort 추가
 		pageDTO.setSort(sort);
-		
+
 		List<ProjectDTO> projectBoardList = projectService.getProjectBoardList(pageDTO);
-		
-		//페이징 작업
-		//전체 글개수 구하기 int 리턴할형 count = getProjectBoardCount()
+
+		// 페이징 작업
+		// 전체 글개수 구하기 int 리턴할형 count = getProjectBoardCount()
 		int count = projectService.getProjectBoardCount(pageDTO);
-		//한 화면에 보여줄 페이지 개수 설정
+		// 한 화면에 보여줄 페이지 개수 설정
 		int pageBlock = 10;
-		//한 화면에 보여줄 시작페이지 구하기
-		int startPage = (currentPage - 1)/pageBlock*pageBlock+1;
-		//한 화면에 보여줄 끝페이지 구하기
+		// 한 화면에 보여줄 시작페이지 구하기
+		int startPage = (currentPage - 1) / pageBlock * pageBlock + 1;
+		// 한 화면에 보여줄 끝페이지 구하기
 		int endPage = startPage + pageBlock - 1;
-		//전체 페이지개수 구하기
+		// 전체 페이지개수 구하기
 		int pageCount = count / pageSize + (count % pageSize == 0 ? 0 : 1);
-		//끝페이지, 전체 페이지수 비교 => 끝페이지가 크면 전체 페이지로 변경
-		if(endPage > pageCount) {
+		// 끝페이지, 전체 페이지수 비교 => 끝페이지가 크면 전체 페이지로 변경
+		if (endPage > pageCount) {
 			endPage = pageCount;
 		}
-		
-		//pageDTO 저장
+
+		// pageDTO 저장
 		pageDTO.setCount(count); // notice.jsp => [전체글개수 ${pageDTO.count}]
 		pageDTO.setPageBlock(pageBlock);
 		pageDTO.setStartPage(startPage);
 		pageDTO.setEndPage(endPage);
 		pageDTO.setPageCount(pageCount);
-	
-		//model 저장
+
+		// model 저장
 		model.addAttribute("pageDTO", pageDTO);
 		model.addAttribute("projectBoardList", projectBoardList);
-		
-		return "board/searchCom";
-	
-	} //project()
-	
 
-	//찜하기
+		return "board/searchCom";
+	}
+
+	// 찜하기
 	@GetMapping("/project/scrap")
 	public String scrap(Scrap_projectDTO scrap_projectDTO, HttpSession session, HttpServletRequest request) {
 		System.out.println("ResumeController scrap()");
 		scrap_projectDTO.setP_num(Integer.parseInt(request.getParameter("p_num")));
-		scrap_projectDTO.setId((String)session.getAttribute("id"));
+		scrap_projectDTO.setId((String) session.getAttribute("id"));
 		Scrap_projectDTO scrap_projectDTO2 = projectService.scrap(scrap_projectDTO);
-		String result="";
-		if(scrap_projectDTO2 !=null) {
-			result="scrapDup";
+		String result = "";
+		if (scrap_projectDTO2 != null) {
+			result = "scrapDup";
 		} else {
 			result = "scrapOk";
 			projectService.insertScrap(scrap_projectDTO);
 		}
 		return "redirect:/board/searchCom";
 	}
-	
-	//삭제
+
+	// 삭제
 	@GetMapping("project/projectDelete")
 	public String resumeDelete(ProjectDTO projectDTO, HttpServletRequest request) {
 		System.out.println("ProjectController projectDelete()");
@@ -144,19 +134,19 @@ public class ProjectController {
 		projectService.projectDelete(projectDTO);
 		return "redirect:/board/searchCom";
 	}
-	
-	//프로젝트 작성
+
+	// 프로젝트 작성
 	@PostMapping("project/projectWritePro")
 	public String projectWritePro(HttpServletRequest request, MultipartFile file) throws Exception {
 		System.out.println("MemberController projectWritePro()");
 		System.out.println(request.getParameter("p_num"));
 		ProjectDTO projectDTO = new ProjectDTO();
-		//파일 업로드
+		// 파일 업로드
 		UUID uuid = UUID.randomUUID();
-		String filename = uuid.toString()+"_"+file.getOriginalFilename();
+		String filename = uuid.toString() + "_" + file.getOriginalFilename();
 		System.out.println(filename);
 		System.out.println(uploadPath);
-		FileCopyUtils.copy(file.getBytes(), new File(uploadPath,filename));
+		FileCopyUtils.copy(file.getBytes(), new File(uploadPath, filename));
 		projectDTO.setP_file(filename);
 //		projectDTO.setP_num(Integer.parseInt(request.getParameter("p_num")));
 		projectDTO.setId(request.getParameter("id"));
@@ -181,13 +171,13 @@ public class ProjectController {
 		Date d3 = format3.parse(p_deadline);
 		Timestamp jdate3 = new Timestamp(d3.getTime());
 		projectDTO.setP_deadline(jdate3);
-		
+
 		System.out.println(projectDTO.toString());
 		projectService.insertProject(projectDTO);
 		return "redirect:/mypageCompany/mypageCompany2";
 	}
-	
-	//글 수정
+
+	// 글 수정
 	@GetMapping("project/projectUpdate")
 	public String projectUpdate(ProjectDTO projectDTO, HttpServletRequest request, Model model) {
 		System.out.println("ProjectController projectUpdate()");
@@ -199,16 +189,16 @@ public class ProjectController {
 		System.out.println(projectService.getProject(p_num));
 		return "project/projectUpdate";
 	}
-	
-	
+
 	@PostMapping("project/projectUpdatePro")
-	public String projectUpdatePro(HttpSession session,HttpServletRequest request, MultipartFile file) throws Exception{
+	public String projectUpdatePro(HttpSession session, HttpServletRequest request, MultipartFile file)
+			throws Exception {
 		System.out.println("ProejctController projectUpdatePro()");
-		
-		String id = (String)session.getAttribute("id");
+
+		String id = (String) session.getAttribute("id");
 		System.out.println(id);
 		ProjectDTO projectDTO = new ProjectDTO();
-		
+
 		projectDTO.setP_num(Integer.parseInt(request.getParameter("p_num")));
 		projectDTO.setId(request.getParameter("id"));
 		projectDTO.setRegion_num(Integer.parseInt(request.getParameter("region")));
@@ -232,8 +222,8 @@ public class ProjectController {
 		Date d3 = format3.parse(p_deadline);
 		Timestamp jdate3 = new Timestamp(d3.getTime());
 		projectDTO.setP_deadline(jdate3);
-		
-		if(file.isEmpty()) {
+
+		if (file.isEmpty()) {
 			System.out.println("첨부파일 없음");
 			projectDTO.setP_file(request.getParameter("oldfile"));
 		} else {
@@ -241,22 +231,15 @@ public class ProjectController {
 			UUID uuid = UUID.randomUUID();
 			String filename = uuid.toString() + "_" + file.getOriginalFilename();
 			System.out.println(filename);
-			
+
 			System.out.println(uploadPath);
-			FileCopyUtils.copy(file.getBytes(), new File(uploadPath,filename));
-			
+			FileCopyUtils.copy(file.getBytes(), new File(uploadPath, filename));
+
 			projectDTO.setP_file(filename);
 		}
 		System.out.println(projectDTO);
 		projectService.projectUpdate(projectDTO);
 		return "redirect:/board/searchCom";
 	}
-	
-		
-		
-	
-	
-	
 
-	
-} // class ProjectController
+}

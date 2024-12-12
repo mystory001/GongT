@@ -5,24 +5,20 @@
 <mapper namespace="com.itwillbs.mappers.ChatMapper">
 
 	<!-- 마이페이지 채팅 목록(기업) -->
-	<select id="chattingBangC"
-		resultType="com.itwillbs.domain.ChatDTO">
+	<select id="chattingBangC" resultType="com.itwillbs.domain.ChatDTO">
 		select c.c_num, c.cid, c.fid, c.c_matching, m.c_content, m.c_time, m.id
 		from chat c join message m
 		on c.c_num = m.c_num
-		where c.cid = #{id}
-		and m.id != #{id}
+		where c.cid = #{id} and m.id != #{id}
 		order by m.c_time desc
 	</select>
 
 	<!-- 마이페이지 채팅 목록(프리랜서) -->
-	<select id="chattingBangF"
-		resultType="com.itwillbs.domain.ChatDTO">
+	<select id="chattingBangF" resultType="com.itwillbs.domain.ChatDTO">
 		select c.c_num, c.cid, c.fid, c.c_matching, m.c_content, m.c_time , m.id
 		from chat c join message m
 		on c.c_num = m.c_num
-		where c.fid = #{id}
-		and m.id != #{id}
+		where c.fid = #{id} and m.id != #{id}
 		order by m.c_time desc
 	</select>
 
@@ -36,8 +32,7 @@
 	<update id="updateMatching">
 		update chat
 		set c_matching = true
-		where c_num =
-		#{c_num}
+		where c_num = #{c_num}
 	</update>
 
 	<update id="updateMatchingF">
@@ -54,12 +49,14 @@
 
 	<!-- 특정 채팅방 정보 조회 -->
 	<select id="getChat" resultType="com.itwillbs.domain.ChatDTO">
-		select * from chat where c_num = #{c_num}
+		select * 
+		from chat 
+		where c_num = #{c_num}
 	</select>
 
 	<!-- 특정 채팅방 메시지 조회 -->
 	<select id="getMessage" resultType="com.itwillbs.domain.ChatDTO">
-		select c.c_num, c.cid, c.fid, c.c_matching, m.c_content, m.c_time , m.id
+		select c.c_num, c.cid, c.fid, c.c_matching, m.c_content, m.c_time, m.id
 		from chat c join message m
 		on c.c_num = m.c_num
 		where c.c_num = #{c_num}
@@ -74,7 +71,7 @@
 	<!-- 특정 조건에 맞는 채팅방 조회 -->
 	<select id="getChatDTO" resultType="com.itwillbs.domain.ChatDTO">
 		select * from chat
-		where fid = #{fid} and cid = #{cid}
+		where fid =	#{fid} and cid = #{cid}
 	</select>
 
 </mapper>

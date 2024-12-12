@@ -11,9 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.domain.ChatDTO;
@@ -61,20 +58,21 @@ public class MemberController {
 	@Inject
 	private ChattingService chattingService;
 
-	//로그인
+	// 로그인
 	@GetMapping("/main/login")
 	public String login() {
 		System.out.println("MemberController login()");
 		return "main/login";
 	}
-	
-	//로그인 처리
+
+	// 로그인 처리
 	@PostMapping("/main/loginPro")
 	public String loginPro(MemberDTO memberDTO, HttpSession session) {
 		System.out.println("MemberController loginPro()");
 		MemberDTO memberDTO2 = memberService.userCheck(memberDTO);
 		if (memberDTO2 != null) {
-			session.setAttribute("id", memberDTO2.getId()); //세션에 "id"라는 이름으로 memberDTO2 객체의 ID를 저장. 사용자의 ID를 세션에 유지하고 다른 페이지에서도 이 ID에 접근할 수 있게 됨
+			session.setAttribute("id", memberDTO2.getId()); // 세션에 "id"라는 이름으로 memberDTO2 객체의 ID를 저장. 사용자의 ID를 세션에 유지하고
+															// 다른 페이지에서도 이 ID에 접근할 수 있게 됨
 			session.setAttribute("type", memberDTO2.getType());
 			session.setAttribute("name", memberDTO2.getName());
 			session.setAttribute("email", memberDTO2.getEmail());
@@ -85,15 +83,15 @@ public class MemberController {
 			return "main/msg";
 		}
 	}
-	
-	//아이디 찾기
+
+	// 아이디 찾기
 	@GetMapping("/main/searchID")
 	public String searchID() {
 		System.out.println("MemberController searchID()");
 		return "/main/searchID";
 	}
 
-	//아이디 찾기 처리
+	// 아이디 찾기 처리
 	@PostMapping("/main/searchIDPro")
 	public String searchIDPro(MemberDTO memberDTO, Model model) {
 		System.out.println("MemberController searchIDPro()");
@@ -106,8 +104,8 @@ public class MemberController {
 			return "/main/msg_search";
 		}
 	}
-	
-	//아이디 찾기 결과
+
+	// 아이디 찾기 결과
 	@PostMapping("/main/findID")
 	public String findID(MemberDTO memberDTO, HttpSession session) {
 		System.out.println("MemberController findID()");
@@ -115,14 +113,14 @@ public class MemberController {
 		return "redirect:/main/findID";
 	}
 
-	//비밀번호 찾기
+	// 비밀번호 찾기
 	@GetMapping("/main/searchPW")
 	public String searchPW() {
 		System.out.println("MemberController searchPW()");
 		return "/main/searchPW";
 	}
 
-	//비밀번호 찾기 처리
+	// 비밀번호 찾기 처리
 	@PostMapping("/main/searchPWPro")
 	public String searchPWPro(MemberDTO memberDTO, Model model) {
 		System.out.println("MemberController searchPWPro()");
@@ -136,21 +134,21 @@ public class MemberController {
 		}
 	}
 
-	//회원가입
+	// 회원가입
 	@GetMapping("/main/join")
 	public String insert() {
 		System.out.println("MemberController insert()");
 		return "main/join";
 	}
-	
-	//프리랜서 회원가입
+
+	// 프리랜서 회원가입
 	@GetMapping("/main/insertFreelancer")
 	public String insertFreelance() {
 		System.out.println("MemberController insertFreelancer()");
 		return "/main/insertFreelancer";
 	}
-	
-	//프리랜서 회원가입 처리
+
+	// 프리랜서 회원가입 처리
 	@PostMapping("/main/insertFreelancerPro")
 	public String insertFreelancerPro(MemberDTO memberDTO) {
 		System.out.println("MemberController insertFreelancerPro()");
@@ -162,15 +160,15 @@ public class MemberController {
 			return "main/msg_error";
 		}
 	}
-	
-	//기업 회원가입
+
+	// 기업 회원가입
 	@GetMapping("/main/insertCompany")
 	public String insertCompany() {
 		System.out.println("MemberController insertCompany()");
 		return "/main/insertCompany";
 	}
 
-	//기업 회원가입 처리
+	// 기업 회원가입 처리
 	@PostMapping("/main/insertCompanyPro")
 	public String insertCompanyPro(MemberDTO memberDTO) {
 		System.out.println("MemberController insertCompanyPro()");
@@ -182,9 +180,9 @@ public class MemberController {
 			return "main/msg_error";
 		}
 	}
-	
-	//============ 회원가입
-	//아이디 중복확인
+
+	// ============ 회원가입
+	// 아이디 중복확인
 	@GetMapping("/main/idCheck")
 	@ResponseBody
 	public String idCheck(MemberDTO memberDTO, HttpServletResponse response) {
@@ -202,7 +200,7 @@ public class MemberController {
 		return result;
 	}
 
-	//사업자 번호 중복확인
+	// 사업자 번호 중복확인
 	@GetMapping("/main/comnumCheck")
 	@ResponseBody
 	public String comnumCheck(MemberDTO memberDTO, HttpServletResponse response) {
@@ -220,7 +218,7 @@ public class MemberController {
 		return result;
 	}
 
-	//이메일 중복확인
+	// 이메일 중복확인
 	@GetMapping("/main/emailCheck")
 	@ResponseBody
 	public String emailCheck(MemberDTO memberDTO, HttpServletResponse response) {
@@ -238,7 +236,7 @@ public class MemberController {
 		return result;
 	}
 
-	//전화번호 중복확인
+	// 전화번호 중복확인
 	@GetMapping("/main/phoneCheck")
 	@ResponseBody
 	public String phoneCheck(MemberDTO memberDTO, HttpServletResponse response) {
@@ -256,7 +254,7 @@ public class MemberController {
 		return result;
 	}
 
-	//로그아웃
+	// 로그아웃
 	@GetMapping("/main/logout")
 	public String logout(HttpSession session) {
 		System.out.println("MemberController logout()");
@@ -264,7 +262,7 @@ public class MemberController {
 		return "redirect:/main/main";
 	}
 
-	//메인 페이지
+	// 메인 페이지
 	@GetMapping("/main/main")
 	public String main(Model model) {
 		System.out.println("MemberController main()");
@@ -275,7 +273,7 @@ public class MemberController {
 		return "main/main";
 	}
 
-	//============ 마이페이지(기업)
+	// ============ 마이페이지(기업)
 	@GetMapping("/mypageCompany/mypageCompany1")
 	public String mypageCompany1(HttpSession session, Model model) {
 		System.out.println("MemberController mypageCompany1()");
@@ -326,9 +324,9 @@ public class MemberController {
 	public String mypageCompany6() {
 		return "mypageCompany/mypageCompany6";
 	}
-	//============ 마이페이지(기업)
+	// ============ 마이페이지(기업)
 
-	//============ 마이페이지(프리랜서)
+	// ============ 마이페이지(프리랜서)
 	@GetMapping("/mypageFreelancer/mypageFreelancer1")
 	public String mypageFreelancer1(HttpSession session, Model model) {
 		System.out.println("MemberController mypageFreelancer1()");
@@ -402,9 +400,9 @@ public class MemberController {
 			return "mypageCompany/msg";
 		}
 	}
-	//============ 마이페이지(프리랜서)
-	
-	//회원 탈퇴
+	// ============ 마이페이지(프리랜서)
+
+	// 회원 탈퇴
 	@PostMapping("/deletePro")
 	public String deletePro(MemberDTO memberDTO, HttpSession session) {
 		System.out.println("MemberController deletePro()");
@@ -417,14 +415,14 @@ public class MemberController {
 			session.invalidate();
 			return "redirect:/main/main";
 		} else {
-			JOptionPane.showMessageDialog(null, "비밀번호 불일치"); 
-			//Java Swing 라이브러리 'JOptionPane' : 사용자에게 팝업 메시지를 표시하는 역할
-			//JOptionPane : 다이얼로그 창을 생성하고 제어하는 클래스
-			//showMessageDialog : 메시지를 표시하는 메서드. 사용자에게 메시지를 표시하기 위해 이 메서드를 호출
+			JOptionPane.showMessageDialog(null, "비밀번호 불일치");
+			// Java Swing 라이브러리 'JOptionPane' : 사용자에게 팝업 메시지를 표시하는 역할
+			// JOptionPane : 다이얼로그 창을 생성하고 제어하는 클래스
+			// showMessageDialog : 메시지를 표시하는 메서드. 사용자에게 메시지를 표시하기 위해 이 메서드를 호출
 			return "redirect:/main/main";
 		}
 	}
-	
+
 	// 개인정보 처리지침
 	@GetMapping("/main/privacyPolicy")
 	public String privacy() {

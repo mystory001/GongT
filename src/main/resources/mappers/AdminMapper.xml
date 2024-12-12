@@ -2,118 +2,178 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-<!-- namespace="com.itwillbs.mappers.boardMapper" 
-       => boardMapper 파일 => xml 파일이름 -->
-<mapper namespace="com.itwillbs.mappers.AdminMapper">
 
-<insert id="insertNotice"> insert into notice(admin_id,n_title,n_content,n_readcount,n_date) 
-		values(#{admin_id},#{n_title},#{n_content},#{n_readcount},#{n_date}) 
+<mapper namespace="com.itwillbs.mappers.AdminMapper"> <!-- namespace="com.itwillbs.mappers.boardMapper" => boardMapper 파일 => xml 파일이름 -->
+
+	<!-- 공지사항 추가 -->
+	<insert id="insertNotice"> 
+		insert into notice(admin_id,n_title,n_content,n_readcount,n_date)
+		values(#{admin_id},#{n_title},#{n_content},#{n_readcount},#{n_date})
 	</insert>
-<insert id="insertInquiry">
-		insert into inquiry(id,i_title,i_content) 
+	
+	<!-- 문의사항 추가 -->
+	<insert id="insertInquiry">
+		insert into inquiry(id,i_title,i_content)
 		values(#{id},#{i_title},#{i_content})
 	</insert>
+	
+	<!-- 문의사항 수정 -->
 	<update id="updateInquiry">
 		update inquiry
 		set i_title = #{i_title}, i_content = #{i_content}
 		where i_num = #{i_num}
 	</update>
-	
+
+	<!-- 문의사항에 대한 관리자 답변추가 -->
 	<update id="inquiry_answer">
 		update inquiry
 		set admin_id = #{admin_id}, asw_title = #{asw_title}, asw_content = #{asw_content}, asw_date = #{asw_date}
 		where i_num = #{i_num}
 	</update>
+
+	<!-- 최신 공지사항 번호 가져오기 -->
+	<select id="getMaxNum" resultType="java.lang.Integer"> 
+		select max(n_num) 
+		from notice
+	</select>
 	
-	<select id="getMaxNum" resultType="java.lang.Integer"> select max(n_num) from notice </select>
-<!--  시작행-1,개수  -->
-<select id="getNoticeList" resultType="com.itwillbs.domain.NoticeDTO">
-select n_num,admin_id,n_title,n_content,n_readcount,n_date from notice
-<if test="search != null"> where n_title like CONCAT('%',#{search},'%') </if>
-order by n_num desc limit #{startRow},#{pageSize}
-</select>
-<select id="getInquiryList" resultType="com.itwillbs.domain.InquiryDTO">
-		select i_num,admin_id,id,i_title,i_content,i_date,asw_title,asw_content,asw_date from inquiry 
+	<!-- 공지사항 목록 조회(검색 기능 포함, 페이징 처리) -->
+	<select id="getNoticeList" resultType="com.itwillbs.domain.NoticeDTO">
+		select n_num,admin_id,n_title,n_content,n_readcount,n_date from notice
+		<if test="search != null"> 
+			where n_title like CONCAT('%',#{search},'%') 
+		</if>
+		order by n_num desc limit #{startRow},#{pageSize}
+	</select>
+	
+	<!-- 문의사항 목록 조회(페이징 처리) -->
+	<select id="getInquiryList" resultType="com.itwillbs.domain.InquiryDTO">
+		select
+		i_num,admin_id,id,i_title,i_content,i_date,asw_title,asw_content,asw_date
+		from inquiry
 		order by i_num desc
-		
 		limit #{startRow},#{pageSize}
 	</select>
+	
+	<!-- 특정 사용자의 문의사항 목록 조회(페이징 처리) -->
 	<select id="getInquiryList2" resultType="com.itwillbs.domain.InquiryDTO">
-		select i_num,admin_id,id,i_title,i_content,i_date,asw_title,asw_content,asw_date from inquiry 
+		select
+		i_num,admin_id,id,i_title,i_content,i_date,asw_title,asw_content,asw_date
+		from inquiry
 		where id = #{id}
 		order by i_num desc
-		
 		limit #{startRow},#{pageSize}
 	</select>
-<select id="getNoticeCount" resultType="java.lang.Integer">
-select count(*) from notice
-<if test="search != null"> where n_title like CONCAT('%',#{search},'%') </if>
-</select>
-<select id="getInquiryCount" resultType="java.lang.Integer">
-		select count(*) from inquiry
-		<if test="search != null"> where i_title like CONCAT('%',#{search},'%') </if>
+	
+	<!-- 공지사항 총 개수 조회(검색 기능 포함) -->
+	<select id="getNoticeCount" resultType="java.lang.Integer">
+		select count(*) 
+		from notice
+		<if test="search != null"> 
+			where n_title like CONCAT('%',#{search},'%') 
+		</if>
 	</select>
-<select id="getNotice" resultType="com.itwillbs.domain.NoticeDTO"> 
-	select n_num,admin_id,n_title,n_content,n_readcount,n_date from notice where n_num = #{n_num} </select>
-<select id="getInquiry" resultType="com.itwillbs.domain.InquiryDTO">
-		select i_num,admin_id,id,i_title,i_content,i_date ,asw_title,asw_content,asw_date from inquiry 
+	
+	<!-- 문의사항 총 개수 조회(검색 기능 포함) -->
+	<select id="getInquiryCount" resultType="java.lang.Integer">
+		select count(*) 
+		from inquiry
+		<if test="search != null"> 
+			where i_title like CONCAT('%',#{search},'%') 
+		</if>
+	</select>
+	
+	<!-- 특정 공지사항 조회 -->
+	<select id="getNotice" resultType="com.itwillbs.domain.NoticeDTO">
+		select n_num,admin_id,n_title,n_content,n_readcount,n_date 
+		from notice 
+		where n_num = #{n_num}
+	</select>
+	
+	<!-- 특정 문의사항 조회 -->
+	<select id="getInquiry" resultType="com.itwillbs.domain.InquiryDTO">
+		select i_num, admin_id, id, i_title, i_content, i_date, asw_title, asw_content, asw_date 
+		from inquiry
 		where i_num = #{i_num}
 	</select>
-<update id="updateReadcount"> update notice set n_readcount = n_readcount +1 where n_num = #{n_num} </update>
-<update id="updateNotice"> 
-update notice set n_title = #{n_title}, n_content = #{n_content} where n_num = #{n_num} 
-</update>
-<delete id="deleteNotice"> delete from notice where n_num = #{n_num} </delete>
-
-
-<update id="deleteAnswer">
-		update inquiry 
-		set admin_id = null, asw_title = null, asw_content = null, asw_date = null 
-		where i_num = #{i_num} 
+	
+	<!-- 공지사항 조회수 증가 -->
+	<update id="updateReadcount"> 
+		update notice 
+		set n_readcount = n_readcount +1 
+		where n_num = #{n_num} 
 	</update>
-<delete id="deleteInquiry">
-			delete from inquiry 
-			where i_num = #{i_num}
-		</delete>
+	
+	<!-- 공지사항 수정 -->
+	<update id="updateNotice">
+		update notice 
+		set n_title = #{n_title}, n_content = #{n_content} 
+		where n_num = #{n_num}
+	</update>
+	
+	<!-- 공지사항 삭제 -->
+	<delete id="deleteNotice"> 
+		delete from notice 
+		where n_num = #{n_num} 
+	</delete>
+	
+	<!-- 문의사항 답변 삭제 -->
+	<update id="deleteAnswer">
+		update inquiry
+		set admin_id = null, asw_title = null, asw_content = null, asw_date =
+		null
+		where i_num = #{i_num}
+	</update>
+	
+	<!-- 문의사항 삭제 -->
+	<delete id="deleteInquiry">
+		delete from inquiry
+		where i_num = #{i_num}
+	</delete>
 
-
-<!-- 관리자 페이지 -->
-<select id="amember" resultType="com.itwillbs.domain.MemberDTO"> 
-		select * from member 
+	<!-- 관리자 페이지 -->
+	<select id="amember" resultType="com.itwillbs.domain.MemberDTO">
+		select * from member
 	</select>
 
-<select id="aproject" resultType="com.itwillbs.domain.ProjectDTO"> 
-		select * from project order by p_num desc
+	<!-- 관리자 페이지 프로젝트 목록 조회 -->
+	<select id="aproject" resultType="com.itwillbs.domain.ProjectDTO">
+		select * 
+		from project 
+		order by p_num desc
 	</select>
-	
-	
-<select id="aresume" resultType="com.itwillbs.domain.ResumeDTO"> 
-		select * from resume order by r_num desc
+
+	<!-- 관리자 페이지 이력서 목록 조회 -->
+	<select id="aresume" resultType="com.itwillbs.domain.ResumeDTO">
+		select * 
+		from resume 
+		order by r_num desc
 	</select>
-	
-	<select id="anotice" resultType="com.itwillbs.domain.NoticeDTO"> 
-		select * from notice order by n_date desc
+
+	<!-- 관리자 페이지 공지사항 목록 조회 -->
+	<select id="anotice" resultType="com.itwillbs.domain.NoticeDTO">
+		select * 
+		from notice 
+		order by n_date desc
 	</select>
-	
-	<select id="ainquiry" resultType="com.itwillbs.domain.InquiryDTO"> 
-		select * from inquiry order by i_date desc
+
+	<!-- 관리자 페이지 문의사항 목록 조회 -->
+	<select id="ainquiry" resultType="com.itwillbs.domain.InquiryDTO">
+		select * 
+		from inquiry 
+		order by i_date desc
 	</select>
-	
+
+	<!-- 프로젝트 삭제 -->
 	<delete id="deleteproject">
-			delete from project 
-			where p_num = #{p_num}
-		</delete>
+		delete from project
+		where p_num = #{p_num}
+	</delete>
 
-		<delete id="deleteresume">
-			delete from resume
-			where r_num = #{r_num}
-		</delete>
-		
-		
-
-
+	<!-- 이력서 삭제 -->
+	<delete id="deleteresume">
+		delete from resume
+		where r_num = #{r_num}
+	</delete>
 
 </mapper>
-
-
