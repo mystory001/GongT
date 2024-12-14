@@ -12,6 +12,9 @@
 - 테이블 정의서 : https://docs.google.com/spreadsheets/d/19fxURHPvwkVdk63c8LweQPBBngY53Ui8/edit?gid=1086071801#gid=1086071801
 - ERD : https://drive.google.com/file/d/1RdICU9xdX0o7PFISii9RqLX77ZSDLmUB/view
 =======================================================================================================
+241214
+1. 코드 주석 추가
+
 241212
 1. 코드 들여쓰기 및 정리
 2. 주석 추가

@@ -13,8 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.itwillbs.domain.PageDTO;
@@ -34,19 +32,22 @@ public class ResumeController {
 	@javax.annotation.Resource(name = "uploadPath")
 	private String uploadPath;
 
-	@RequestMapping(value = "/resume/resume", method = RequestMethod.GET)
+	// 이력서 페이지
+	@GetMapping("/resume/resume")
 	public String resume1(HttpServletRequest request, Model model) {
-		int r_num = Integer.parseInt(request.getParameter("r_num"));
+		int r_num = Integer.parseInt(request.getParameter("r_num"));  // r_num 파라미터로 이력서 번호를 받아서 해당 이력서와 회원 정보 조회
 		model.addAttribute("memberDTO", resumeService.getMember(r_num));
 		model.addAttribute("resumeDTO", resumeService.getResume(r_num));
 		return "resume/resume";
 	}
 
+	// 이력서 작성
 	@GetMapping("/resume/resumeWrite")
 	public String resumeWrite() {
 		return "resume/resumeWrite";
 	}
 
+	// 이력서 검색 및 페이징 처리
 	@GetMapping("/board/searchFree")
 	public String resume(HttpServletRequest request, PageDTO pageDTO, Model model) {
 		// 검색어 가져오기(notice submit에서 name = "search")
@@ -105,7 +106,7 @@ public class ResumeController {
 		model.addAttribute("resumeBoardList", resumeBoardList);
 
 		return "board/searchFree";
-	} 
+	}
 
 	// 찜하기
 	@GetMapping("/resume/scrap")
@@ -152,6 +153,7 @@ public class ResumeController {
 		return "redirect:/mypageFreelancer/mypageFreelancer2";
 	}
 
+	// 이력서 수정
 	@GetMapping("resume/resumeUpdate")
 	public String resumeUpdate(ResumeDTO resumeDTO, HttpServletRequest request, Model model) {
 		System.out.println("ResumeController resumeUpdate()");
@@ -165,6 +167,7 @@ public class ResumeController {
 		return "resume/resumeUpdate";
 	}
 
+	// 이력서 수정 처리
 	@PostMapping("resume/resumeUpdatePro")
 	public String resumeUpdatePro(HttpSession session, HttpServletRequest request, MultipartFile file)
 			throws Exception {
@@ -207,6 +210,7 @@ public class ResumeController {
 		return "redirect:/board/searchFree";
 	}
 
+	// 이력서 삭제
 	@GetMapping("resume/resumeDelete")
 	public String resumeDelete(ResumeDTO resumeDTO, HttpServletRequest request) {
 		System.out.println("ResumeController resumeDelete()");

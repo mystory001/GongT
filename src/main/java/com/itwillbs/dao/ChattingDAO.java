@@ -12,6 +12,7 @@ import com.itwillbs.domain.MessageDTO;
 
 @Repository
 public class ChattingDAO {
+
 	@Inject
 	private SqlSession sqlSession;
 

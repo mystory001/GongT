@@ -2,9 +2,9 @@ package com.itwillbs.domain;
 
 public class AdminDTO {
 
-	private String admin_id;
-	private String admin_name;
-	private String admin_pw;
+	private String admin_id; 
+	private String admin_name; 
+	private String admin_pw; 
 
 	public String getAdmin_id() {
 		return admin_id;

@@ -5,16 +5,19 @@
 
 <mapper namespace="com.itwillbs.mappers.ProjectMapper">
 
+	<!-- 프로젝트의 총 개수 조회 -->
 	<select id="getProjectCount" resultType="java.lang.Integer">
 		select count(*) from
 		project
 	</select>
 	
+	<!-- 프로젝트 중 가장 큰 p_num(프로젝트 번호) 조회 -->
 	<select id="getProjectMaxNum" resultType="java.lang.Integer"> 
 		select max(p_num) 
 		from project 
 	</select>
 
+	<!-- 특정 프로젝트 번호(p_num)에 해당하는 회원 정보 조회 -->
 	<select id="getMember" resultType="com.itwillbs.domain.MemberDTO">
 		select m.* 
 		from member m join project p 
@@ -22,29 +25,30 @@
 		where p.p_num = #{p_num}
 	</select>
 
+	<!-- 특정 프로젝트(p_num)의 상세 정보 조회 -->
 	<select id="getProject" resultType="com.itwillbs.domain.ProjectDTO">
-		select p.*, f.*, rg.*
+		select p.*, f.*, rg.* 
 		from project p join field f
 		on p.field_num = f.field_num
 		join region rg
 		on p.region_num = rg.region_num
 		where p.p_num = #{p_num}
 	</select>
-	<!--  
-		select p.*, f.*, rg.* : project 테이블(p), field 테이블(f), region 테이블(rg)의 모든 컬럼을 선택
+	<!-- 
+		p.*, f.*, rg.* : project 테이블(p), field 테이블(f), region 테이블(rg)의 모든 컬럼을 선택
 		from project p : project 테이블을 p라는 별칭(alias)으로 지정하여 사용
-		join field f on p.field_num = f.field_num : field 테이블(f)과 project 테이블을 조인. p.field_num = f.field_num 조건에 맞는 데이터를 조회하는데, project 테이블의 field_num 컬럼과 field 테이블의 field_num 컬럼이 동일한 값을 가지는 행을 연결(join).
-		join region rg on p.region_num = rg.region_num : p.region_num = rg.region_num 조건에 맞는 데이터를 조회하는데, project 테이블의 region_num 컬럼과 region 테이블의 region_num 컬럼이 동일한 값을 가지는 행을 연결(join).
-		where p.p_num = #{p_num} : project 테이블에서 특정 p_num(프로젝트 번호)을 기준으로 프로젝트 정보를 조회하는 조건.
+		join field f on p.field_num = f.field_num : project 테이블과 field 테이블을 연결
+		join region rg on p.region_num = rg.region_num : project 테이블과 region 테이블을 연결
+		where p.p_num = #{p_num} : 특정 프로젝트 번호(p_num)에 해당하는 데이터를 조회
 	-->
 
+	<!-- 프로젝트 게시글 목록 조회 (검색, 정렬, 페이징 적용) -->
 	<select id="getProjectBoardList" resultType="com.itwillbs.domain.ProjectDTO">
 		select p.*, m.name, m.matching 
 		from project p 
 		join member m on p.id = m.id
 		join field f on p.field_num = f.field_num
-		join region r on
-		p.region_num = r.region_num
+		join region r on p.region_num = r.region_num
 		<if test="search != null">
 			<if test="select == 'p_title'"> where p_title like CONCAT('%',#{search},'%') </if>
 			<if test="select == 'p_content'"> where p_content like CONCAT('%',#{search},'%') </if>
@@ -53,13 +57,18 @@
 			<if test="select == 'region'"> where r.region like CONCAT('%',#{search},'%') </if>
 		</if>
 		<if test="sort == '' or sort == null">
-			order by p.p_num desc
+			order by p.p_num desc <!-- 기본 정렬: 프로젝트 번호 내림차순 -->
 		</if>
-		<if test="sort == 'sortM'"> order by m.matching desc, p.p_num desc </if>
-		<if test="sort == 'sortR'"> order by p.p_readcount desc </if>
-		limit #{startRow},#{pageSize}
+		<if test="sort == 'sortM'"> 
+			order by m.matching desc, p.p_num desc <!-- 매칭 수 내림차순, 프로젝트 번호 내림차순 정렬 -->
+		</if>
+		<if test="sort == 'sortR'"> 
+			order by p.p_readcount desc <!-- 조회수 내림차순 정렬 -->
+		</if>
+		limit #{startRow},#{pageSize} <!-- 페이징 처리: startRow부터 pageSize만큼의 결과를 반환 -->
 	</select>
 
+	<!-- 프로젝트 게시글 목록의 총 개수 조회 -->
 	<select id="getProjectBoardCount" resultType="java.lang.Integer">
 		select count(p.p_num) 
 		from project p 
@@ -75,43 +84,46 @@
 		</if>
 	</select>
 
+	<!-- 특정 프로젝트의 상세 정보 조회 -->
 	<select id="getProjectBoard" resultType="com.itwillbs.domain.ProjectDTO"> 
 		select * 
 		from project 
 		where p_num = #{p_num} 
 	</select>
 	
+	<!-- 프로젝트 조회수 증가 -->
 	<update id="updateProjectReadcount"> 
 		update project 
 		set p_readcount = p_readcount + 1
 		where p_num = #{p_num} 
 	</update>
 
-	<!-- 찜 확인 -->
+	<!-- 찜 확인: 사용자가 특정 프로젝트를 찜했는지 확인 -->
 	<select id="scrap" resultType="com.itwillbs.domain.Scrap_projectDTO">
 		select * 
 		from scrap_project
 		where p_num = #{p_num} and id = #{id}
 	</select>
 
-	<!-- 찜 하기 -->
+	<!-- 찜 하기: 사용자가 특정 프로젝트를 찜 목록에 추가 -->
 	<insert id="insertScrap">
 		insert into scrap_project
 		values (#{sp_num}, #{p_num}, #{id})
 	</insert>
 
-	<!-- 글 삭제 -->
+	<!-- 프로젝트 삭제: 특정 프로젝트 번호(p_num)에 해당하는 프로젝트 삭제 -->
 	<delete id="projectDelete">
 		delete from project
 		where p_num = #{p_num}
 	</delete>
 
-	<!-- 프로젝트 작성 -->
+	<!-- 프로젝트 작성: 새로운 프로젝트를 project 테이블에 삽입 -->
 	<insert id="insertProject">
 		insert into project(id, p_title, p_member, field_num, region_num, p_start, p_end, p_deadline, p_file, p_content)
 		values(#{id}, #{p_title}, #{p_member}, #{field_num}, #{region_num}, #{p_start}, #{p_end}, #{p_deadline}, #{p_file}, #{p_content})
 	</insert>
 
+	<!-- 프로젝트 수정: 특정 프로젝트의 정보를 수정 -->
 	<update id="projectUpdate">
 		update project
 		set p_title = #{p_title}, p_member = #{p_member}, field_num = #{field_num}, region_num = #{region_num}, p_start = #{p_start}, p_end = #{p_end}, p_deadline = #{p_deadline}, p_file = #{p_file}, p_content = #{p_content}

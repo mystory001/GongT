@@ -5,80 +5,108 @@
 
 <mapper namespace="com.itwillbs.mappers.ResumeMapper">
 
+	<!-- 이력서의 총 개수 조회 -->
 	<select id="getResumeCount" resultType="java.lang.Integer">
 		select count(*) from resume
 	</select>
 	
+	<!-- 이력서 중 가장 큰 r_num(이력서 번호) 조회 -->
 	<select id="getResumeMaxNum" resultType="java.lang.Integer">
-	 select max(r_num) from resume 
-	 </select>
+		select max(r_num) from resume 
+	</select>
 
+	<!-- 특정 이력서(r_num)의 상세 정보 조회 -->
 	<select id="getResume" resultType="com.itwillbs.domain.ResumeDTO">
-		select r.*, f.field, rg.region from resume r join field f on r.field_num = f.field_num
-		join region rg on r.region_num = rg.region_num where r.r_num = #{r_num}
+		select r.*, f.field, rg.region 
+		from resume r 
+		join field f on r.field_num = f.field_num
+		join region rg on r.region_num = rg.region_num 
+		where r.r_num = #{r_num}
 	</select>
-	
+	<!-- 
+		r.*, f.field, rg.region : resume 테이블(r), field 테이블(f), region 테이블(rg)의 컬럼을 선택
+		from resume r : resume 테이블을 r로 지정하여 사용
+		join field f on r.field_num = f.field_num : resume 테이블과 field 테이블을 field_num 컬럼을 기준으로 결합
+		join region rg on r.region_num = rg.region_num : resume 테이블과 region 테이블을 region_num 컬럼을 기준으로 결합
+		where r.r_num = #{r_num} : 특정 이력서 번호(r_num)에 해당하는 이력서 정보를 조회
+	-->
+
+	<!-- 특정 이력서를 작성한 회원 정보 조회 -->
 	<select id="getMember" resultType="com.itwillbs.domain.MemberDTO">
-		select m.* from member m join resume r on m.id = r.id where r.r_num = #{r_num}
+		select m.* from member m 
+		join resume r on m.id = r.id 
+		where r.r_num = #{r_num}
 	</select>
 
+	<!-- 이력서 게시글 목록 조회 (검색, 정렬, 페이징 적용) -->
 	<select id="getResumeBoardList" resultType="com.itwillbs.domain.ResumeDTO">
-		select r.*, m.name, m.matching from resume r join member m on r.id = m.id
+		select r.*, m.name, m.matching 
+		from resume r 
+		join member m on r.id = m.id
 		join field f on r.field_num = f.field_num
 		join region rg on r.region_num = rg.region_num
-			<if test="search != null">
-				<if test="select == 'r_name'"> where r_name like CONCAT('%',#{search},'%') </if>
-				<if test="select == 'r_content'"> where r_content like CONCAT('%',#{search},'%') </if>
-				<if test="select == 'name123'"> where m.name like CONCAT('%',#{search},'%') </if>
-				<if test="select == 'field'"> where f.field like CONCAT('%',#{search},'%') </if>
-				<if test="select == 'region'"> where rg.region like CONCAT('%',#{search},'%') </if>
-			</if>
-			<if test="sort == '' or sort == null">
-			order by r.r_num desc
-			</if>
-			<if test="sort == 'sortM'"> order by m.matching desc, r.r_num desc</if>
-			<if test="sort == 'sortS'"> order by r.r_salary desc</if>
-			limit #{startRow},#{pageSize}
-	</select>
-	
-	<select id="getResumeBoardCount" resultType="java.lang.Integer">
-		select count(r.r_num) from resume r join member m on r.id = m.id
-		join field f on r.field_num = f.field_num
-		join region rg on r.region_num = rg.region_num
-			<if test="search != null">
-				<if test="select == 'r_name'"> where r_name like CONCAT('%',#{search},'%') </if>
-				<if test="select == 'r_content'"> where r_content like CONCAT('%',#{search},'%') </if>
-				<if test="select == 'name123'"> where m.name like CONCAT('%',#{search},'%') </if>
-				<if test="select == 'field'"> where f.field like CONCAT('%',#{search},'%') </if>
-				<if test="select == 'region'"> where rg.region like CONCAT('%',#{search},'%') </if>
-			</if>
+		<if test="search != null">
+			<if test="select == 'r_name'"> where r_name like CONCAT('%',#{search},'%') </if>
+			<if test="select == 'r_content'"> where r_content like CONCAT('%',#{search},'%') </if>
+			<if test="select == 'name123'"> where m.name like CONCAT('%',#{search},'%') </if>
+			<if test="select == 'field'"> where f.field like CONCAT('%',#{search},'%') </if>
+			<if test="select == 'region'"> where rg.region like CONCAT('%',#{search},'%') </if>
+		</if>
+		<if test="sort == '' or sort == null">
+			order by r.r_num desc <!-- 기본 정렬: 이력서 번호 내림차순 -->
+		</if>
+		<if test="sort == 'sortM'"> 
+			order by m.matching desc, r.r_num desc <!-- 매칭 수 내림차순, 이력서 번호 내림차순 정렬 -->
+		</if>
+		<if test="sort == 'sortS'"> 
+			order by r.r_salary desc <!-- 급여 내림차순 정렬 -->
+		</if>
+		limit #{startRow},#{pageSize} <!-- 페이징 처리: startRow부터 pageSize만큼의 결과를 반환 -->
 	</select>
 
-	<select id="getResumeBoard"
-		resultType="com.itwillbs.domain.ResumeDTO">
-		select * from resume
+	<!-- 이력서 게시글 목록의 총 개수 조회 -->
+	<select id="getResumeBoardCount" resultType="java.lang.Integer">
+		select count(r.r_num) 
+		from resume r 
+		join member m on r.id = m.id
+		join field f on r.field_num = f.field_num
+		join region rg on r.region_num = rg.region_num
+		<if test="search != null">
+			<if test="select == 'r_name'"> where r_name like CONCAT('%',#{search},'%') </if>
+			<if test="select == 'r_content'"> where r_content like CONCAT('%',#{search},'%') </if>
+			<if test="select == 'name123'"> where m.name like CONCAT('%',#{search},'%') </if>
+			<if test="select == 'field'"> where f.field like CONCAT('%',#{search},'%') </if>
+			<if test="select == 'region'"> where rg.region like CONCAT('%',#{search},'%') </if>
+		</if>
+	</select>
+
+	<!-- 특정 이력서(r_num)의 상세 정보 조회 -->
+	<select id="getResumeBoard" resultType="com.itwillbs.domain.ResumeDTO">
+		select * 
+		from resume
 		where r_num = #{r_num}
 	</select>
 
-	<!-- 찜 확인 -->
+	<!-- 찜 확인: 사용자가 특정 이력서를 찜했는지 확인 -->
 	<select id="scrap" resultType="com.itwillbs.domain.Scrap_resumeDTO">
-		select * from scrap_resume
+		select * 
+		from scrap_resume
 		where r_num = #{r_num} and id = #{id}
 	</select>
 
-	<!-- 찜 하기 -->
+	<!-- 찜 하기: 사용자가 특정 이력서를 찜 목록에 추가 -->
 	<insert id="insertScrap">
 		insert into scrap_resume
 		values (#{sr_num}, #{r_num}, #{id})
 	</insert>
 
-	<!-- 이력서 작성 -->
+	<!-- 이력서 작성: 새로운 이력서를 resume 테이블에 삽입 -->
 	<insert id="insertResume">
 		insert into resume(r_num, id, region_num, field_num, r_name, r_career, r_tech, r_form, r_salary, r_exp, r_content, r_file)
 		values(#{r_num}, #{id}, #{region_num}, #{field_num}, #{r_name}, #{r_career}, #{r_tech}, #{r_form}, #{r_salary}, #{r_exp}, #{r_content}, #{r_file})
 	</insert>
 
-	<!-- 이력서 수정 -->
+	<!-- 이력서 수정: 기존 이력서의 정보를 수정 -->
 	<update id="resumeUpdate">
 		update resume
 		set region_num = #{region_num},
@@ -94,10 +122,10 @@
 		where r_num = #{r_num}
 	</update>
 
-	<!-- 글 삭제 -->
+	<!-- 이력서 삭제: 특정 이력서(r_num)를 삭제 -->
 	<delete id="resumeDelete">
 		delete from resume
 		where r_num = #{r_num}
 	</delete>
-	
+
 </mapper>

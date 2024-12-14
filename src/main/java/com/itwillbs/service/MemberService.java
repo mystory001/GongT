@@ -68,42 +68,49 @@ public class MemberService {
 	}
 	// ============회원 가입
 
+	// 전체 회사 개수
 	public int getCompanyCount() {
 		System.out.println("MemberService getCompanyCount()");
 
 		return memberDAO.getCompanyCount();
 	}
 
+	// 매칭 수 조회
 	public int getMatchingCount() {
 		System.out.println("MemberService getMatchingCount()");
 
 		return memberDAO.getMatchingCount();
 	}
 
+	// 회원 정보 수정
 	public void updateMember(MemberDTO memberDTO) {
 		System.out.println("MemberService updateMember()");
 
 		memberDAO.updateMember(memberDTO);
 	}
 
+	// 참여한 프로젝트 조회
 	public List<ProjectDTO> projectCheck(String id) {
 		System.out.println("MemberService projectCheck()");
 
 		return memberDAO.projectCheck(id);
 	}
 
+	// 찜한 이력서 조회
 	public List<Scrap_resumeDTO> resumeScrap(String id) {
 		System.out.println("MemberDAO resumeScrap()");
 
 		return memberDAO.resumeScrap(id);
 	}
 
+	// 찜한 프로젝트 조회
 	public List<Scrap_projectDTO> projectScrap(String id) {
 		System.out.println("MemberDAO projectScrap()");
 
 		return memberDAO.projectScrap(id);
 	}
 
+	// 회원 탈퇴
 	public void deleteMember(MemberDTO memberDTO) {
 		System.out.println("MemberService deleteMember()");
 
@@ -111,12 +118,14 @@ public class MemberService {
 		memberDAO.deleteMember(memberDTO);
 	}
 
+	// 이력서 조회
 	public List<ResumeDTO> resumeCheck(String id) {
 		System.out.println("MemberDAO resumeCheck()");
 
 		return memberDAO.resumeCheck(id);
 	}
 
+	// 중복 확인
 	public List<MemberDTO> insertCheck(MemberDTO memberDTO) {
 		System.out.println("MemberDAO insertCheck()");
 		return memberDAO.insertCheck(memberDTO);

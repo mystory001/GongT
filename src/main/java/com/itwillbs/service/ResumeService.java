@@ -19,22 +19,26 @@ public class ResumeService {
 	@Inject
 	private ResumeDAO resumeDAO;
 
+	// 이력서 개수 조회
 	public int getResumeCount() {
 		System.out.println("ResumeService getResumeCount()");
 
 		return resumeDAO.getResumeCount();
 	}
 
+	// 이력서 번호로 회원 정보 조회
 	public MemberDTO getMember(int r_num) {
 		System.out.println("ResumeService getMember()");
 		return resumeDAO.getMember(r_num);
 	}
 
+	// 이력서 번호 가져오기
 	public ResumeDTO getResume(int r_num) {
 		System.out.println("ResumeService getResume()");
 		return resumeDAO.getResume(r_num);
 	}
 
+	// 이력서 목록 조회
 	public List<ResumeDTO> getResumeBoardList(PageDTO pageDTO) {
 		System.out.println("ResumeService getResumeBoardList()");
 		// 시작하는 행번호 구하기
@@ -54,26 +58,31 @@ public class ResumeService {
 		return resumeDAO.getResumeBoardList(pageDTO);
 	}
 
+	// 이력서 게시판 전체 게시글 조회
 	public int getResumeBoardCount(PageDTO pageDTO) {
 		System.out.println("ResumeService getResumeBoardCount()");
 		return resumeDAO.getResumeBoardCount(pageDTO);
 	}
 
+	// 특정 이력서 조회
 	public ResumeDTO getResumeBoard(ResumeDTO resumeDTO) {
 		System.out.println("ResumeService getResumeBoard()");
 		return resumeDAO.getResumeBoard(resumeDTO);
 	}
 
+	// 이력서 찜하기 상태 확인
 	public Scrap_resumeDTO scrap(Scrap_resumeDTO scrap_resumeDTO) {
 		System.out.println("ResumeService scrap()");
 		return resumeDAO.scrap(scrap_resumeDTO);
 	}
 
+	// 이력서 스크랩 추가
 	public void insertScrap(Scrap_resumeDTO scrap_resumeDTO) {
 		System.out.println("ResumeService insertScrap()");
 		resumeDAO.insertScrap(scrap_resumeDTO);
 	}
 
+	// 이력서 등록
 	public void insertResume(ResumeDTO resumeDTO) {
 		System.out.println("ResumeService insertResume()");
 		resumeDTO.setR_num(resumeDAO.getResumeMaxNum() + 1);
@@ -81,11 +90,13 @@ public class ResumeService {
 		resumeDAO.insertResume(resumeDTO);
 	}
 
+	// 이력서 수정
 	public void resumeUpdate(ResumeDTO resumeDTO) {
 		System.out.println("ResumeService resumeUpdate()");
 		resumeDAO.resumeUpdate(resumeDTO);
 	}
 
+	// 이력서 삭제
 	public void resumeDelete(ResumeDTO resumeDTO) {
 		System.out.println("ResumeService resumeDelete()");
 		resumeDAO.resumeDelete(resumeDTO);

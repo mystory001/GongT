@@ -5,88 +5,97 @@
 
 <mapper namespace="com.itwillbs.mappers.MemberMapper">
 
+	<!-- 로그인 체크: 주어진 아이디와 비밀번호로 사용자를 확인 -->
 	<select id="userCheck" resultType="com.itwillbs.domain.MemberDTO">
 		select * 
 		from member
 		where id = #{id} and pw = #{pw}
 	</select>
 
+	<!-- 회원가입 중복 체크: 아이디, 이메일, 전화번호, 사업자번호 중복 확인 -->
 	<select id="insertCheck" resultType="com.itwillbs.domain.MemberDTO">
 		select * from member
 		where id = #{id} or email = #{email} or phone =#{phone}
 		<if test="comnum != null">
-			or comnum = #{comnum}
+			or comnum = #{comnum} <!-- 사업자번호가 null이 아니면 추가로 중복 확인 -->
 		</if>
 	</select>
 
+	<!-- 회원 가입: 새로운 회원 정보를 member 테이블에 삽입 -->
 	<insert id="insertMember">
 		insert into member(id, pw, name, comnum, email, phone, type)
 		values(#{id}, #{pw}, #{name},#{comnum},#{email},#{phone}, #{type})
 	</insert>
 
-	<!-- 아이디 찾기 -->
+	<!-- 아이디 찾기: 이름과 이메일로 아이디를 찾음 -->
 	<select id="userCheckID" resultType="com.itwillbs.domain.MemberDTO">
 		select id from member 
 		where name = #{name} and email = #{email}
 	</select>
 	
-	<!-- 비밀번호 찾기 -->
+	<!-- 비밀번호 찾기: 아이디, 이름, 이메일로 비밀번호를 찾음 -->
 	<select id="userCheckPW" resultType="com.itwillbs.domain.MemberDTO">
 		select pw 
 		from member 
 		where id = #{id} and name = #{name} and email = #{email}
 	</select>
 
-	<!-- 사업자번호 중복확인 -->
+	<!-- 사업자번호 중복 확인: 사업자번호가 이미 존재하는지 확인 -->
 	<select id="getComNum" resultType="com.itwillbs.domain.MemberDTO">
 		select * 
 		from member 
 		where comnum = #{comnum}
 	</select>
 	
-	<!-- 이메일 중복확인 -->
+	<!-- 이메일 중복 확인: 이메일이 이미 존재하는지 확인 -->
 	<select id="getEmail" resultType="com.itwillbs.domain.MemberDTO">
 		select * 
 		from member 
 		where email = #{email}
 	</select>
 	
-	<!-- 전화번호 중복확인 -->
+	<!-- 전화번호 중복 확인: 전화번호가 이미 존재하는지 확인 -->
 	<select id="getPhone" resultType="com.itwillbs.domain.MemberDTO">
 		select * 
 		from member 
 		where phone = #{phone}
 	</select>
 
+	<!-- 기업 수 조회: 기업 회원의 수를 조회 -->
 	<select id="getCompanyCount" resultType="java.lang.Integer">
 		select count(*) 
 		from member 
 		where type = 1
 	</select>
 
+	<!-- 매칭 수 합산: 모든 회원의 매칭 수 합계를 조회 -->
 	<select id="getMatchingCount" resultType="java.lang.Integer">
 		select sum(matching)
 		from member
 	</select>
 
+	<!-- 회원 정보 조회: 특정 아이디에 해당하는 회원 정보를 조회 -->
 	<select id="getMember" resultType="com.itwillbs.domain.MemberDTO">
 		select * 
 		from member
 		where id = #{id}
 	</select>
 
+	<!-- 회원 정보 수정: 회원의 비밀번호, 이름, 전화번호, 이메일 수정 -->
 	<update id="updateMember">
 		update member 
 		set pw = #{pw}, name = #{name}, phone=#{phone}, email=#{email}
 		where id = #{id}
 	</update>
 
+	<!-- 프로젝트 조회: 특정 아이디의 회원이 작성한 프로젝트 목록을 조회 -->
 	<select id="projectCheck" resultType="com.itwillbs.domain.ProjectDTO">
 		select p_title, p_writedate, p_member, p_num from project
 		where id = #{id}
 		order by p_num desc
 	</select>
 
+	<!-- 이력서 스크랩 조회: 회원이 스크랩한 이력서 목록을 조회 -->
 	<select id="resumeScrap" resultType="com.itwillbs.domain.Scrap_resumeDTO">
 		select fm.name, r.r_name, r.r_num
 		from scrap_resume s join member m
@@ -98,6 +107,7 @@
 		where m.id = #{id}
 	</select>
 
+	<!-- 프로젝트 스크랩 조회: 회원이 스크랩한 프로젝트 목록을 조회 -->
 	<select id="projectScrap" resultType="com.itwillbs.domain.Scrap_projectDTO">
 		select fm.name, p.p_title, p.p_num
 		from scrap_project s join member m
@@ -109,12 +119,13 @@
 		where m.id = #{id}
 	</select>
 
+	<!-- 회원 삭제: 주어진 아이디에 해당하는 회원을 삭제 -->
 	<delete id="deleteMember">
 		delete from member
 		where id = #{id}
 	</delete>
 
-	<!-- 삭제 -->
+	<!-- 이력서 조회: 특정 회원의 이력서 목록을 조회 -->
 	<select id="resumeCheck"
 		resultType="com.itwillbs.domain.ResumeDTO">
 		select r_name, r_salary, r_num from resume
@@ -123,5 +134,3 @@
 	</select>
 
 </mapper>
-
-

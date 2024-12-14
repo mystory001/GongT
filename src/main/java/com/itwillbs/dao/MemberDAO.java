@@ -74,54 +74,63 @@ public class MemberDAO {
 		return sqlSession.selectOne(namespace + ".getPhone", phone);
 	}
 
+	// 전체 회사 개수
 	public int getCompanyCount() {
 		System.out.println("CompanyDAO getCompanyCount()");
 
 		return sqlSession.selectOne(namespace + ".getCompanyCount");
 	}
 
+	// 매칭 수 조회
 	public int getMatchingCount() {
 		System.out.println("MemberDAO getMatchingCount()");
 
 		return sqlSession.selectOne(namespace + ".getMatchingCount");
 	}
 
+	// 회원 정보 수정
 	public void updateMember(MemberDTO memberDTO) {
 		System.out.println("MemberDAO updateMember()");
 
 		sqlSession.update(namespace + ".updateMember", memberDTO);
 	}
 
+	// 참여한 프로젝트 조회
 	public List<ProjectDTO> projectCheck(String id) {
 		System.out.println("MemberDAO projectCheck()");
 
 		return sqlSession.selectList(namespace + ".projectCheck", id);
 	}
 
+	// 찜한 이력서 조회
 	public List<Scrap_resumeDTO> resumeScrap(String id) {
 		System.out.println("MemberDAO resumeScrap()");
 
 		return sqlSession.selectList(namespace + ".resumeScrap", id);
 	}
 
+	// 찜한 프로젝트 조회
 	public List<Scrap_projectDTO> projectScrap(String id) {
 		System.out.println("MemberDAO projectScrap()");
 
 		return sqlSession.selectList(namespace + ".projectScrap", id);
 	}
 
+	// 회원 탈퇴
 	public void deleteMember(MemberDTO memberDTO) {
 		System.out.println("MemberService deleteMember()");
 
 		sqlSession.delete(namespace + ".deleteMember", memberDTO);
 	}
 
+	// 이력서 목록 조회
 	public List<ResumeDTO> resumeCheck(String id) {
 		System.out.println("MemberDAO resumeCheck()");
 
 		return sqlSession.selectList(namespace + ".resumeCheck", id);
 	}
 
+	// 회원 가입 중복 확인
 	public List<MemberDTO> insertCheck(MemberDTO memberDTO) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(namespace + ".insertCheck", memberDTO);
