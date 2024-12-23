@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.itwillbs.dao.MemberDAO;
@@ -18,12 +20,51 @@ public class MemberService {
 
 	@Inject
 	private MemberDAO memberDAO;
+	
+	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	public MemberService(PasswordEncoder passwordEncoder, MemberDAO memberDAO) {
+		this.passwordEncoder = passwordEncoder;
+		this.memberDAO = memberDAO;
+	}
 
 	// 로그인 시 체크
+//	public MemberDTO userCheck(MemberDTO memberDTO) {
+//		System.out.println("MemberService userCheck()");
+//		return memberDAO.userCheck(memberDTO);
+//	}
 	public MemberDTO userCheck(MemberDTO memberDTO) {
 		System.out.println("MemberService userCheck()");
-		return memberDAO.userCheck(memberDTO);
+//		 // DB에서 회원 정보를 가져옴
+//        MemberDTO encodedPassword = memberDAO.userCheck(memberDTO);
+//
+//        // DB에서 가져온 암호화된 비밀번호와 비교
+//        if (encodedPassword != null && passwordEncoder.matches(memberDTO.getPw(), encodedPassword.getPw())) {
+//            return encodedPassword;
+//        }
+//        return null;
+		
+        // DB에서 회원 정보를 가져옴
+        MemberDTO encodedPassword = memberDAO.userCheck(memberDTO);
+
+        // DB에서 비밀번호가 암호화되지 않은 경우 (평문 비밀번호)
+        if (encodedPassword != null && !encodedPassword.getPw().startsWith("{bcrypt}")) {
+            // 평문 비밀번호로 로그인 처리
+            if (encodedPassword.getPw().equals(memberDTO.getPw())) {
+                return encodedPassword;
+            }
+        }
+        
+        // DB에서 비밀번호가 암호화된 경우 (BCrypt)
+        if (encodedPassword != null && passwordEncoder.matches(memberDTO.getPw(), encodedPassword.getPw())) {
+            return encodedPassword;
+        }
+        
+        // 로그인 실패
+        return null;
 	}
+
 
 	// 아이디 찾기
 	public MemberDTO userCheckID(MemberDTO memberDTO) {
@@ -40,6 +81,14 @@ public class MemberService {
 	// ============회원 가입
 	public void insertMember(MemberDTO memberDTO) {
 		System.out.println("MemberService insertMember()");
+		
+		// 1. 평문 비밀번호를 암호화
+		String encodedPassword = passwordEncoder.encode(memberDTO.getPw());
+		
+		// 2. 암호화된 비밀번호를 memberDTO로 저장
+		memberDTO.setPw(encodedPassword);
+		
+		// 3. 암호화된 비밀번호와 함께 회원 데이터를 DAO로 전달
 		memberDAO.insertMember(memberDTO);
 	}
 
@@ -86,6 +135,14 @@ public class MemberService {
 	public void updateMember(MemberDTO memberDTO) {
 		System.out.println("MemberService updateMember()");
 
+		// 비밀번호가 변경되었으면 암호화
+		if (memberDTO.getPw() != null && !memberDTO.getPw().isEmpty()) {
+			// 평문 비밀번호를 암호화
+			String encodedPassword = passwordEncoder.encode(memberDTO.getPw());
+			memberDTO.setPw(encodedPassword);
+		} 
+
+		// 회원 정보 업데이트
 		memberDAO.updateMember(memberDTO);
 	}
 
@@ -129,6 +186,19 @@ public class MemberService {
 	public List<MemberDTO> insertCheck(MemberDTO memberDTO) {
 		System.out.println("MemberDAO insertCheck()");
 		return memberDAO.insertCheck(memberDTO);
+	}
+
+	public void updateMemberPassword(MemberDTO memberDTO) {
+		System.out.println("MemberService updateMemberPassword()");
+		
+	    // 비밀번호 암호화
+        String encodedPassword = passwordEncoder.encode(memberDTO.getPw());
+
+        // 암호화된 비밀번호를 memberDTO에 설정
+        memberDTO.setPw(encodedPassword);
+
+        // 암호화된 비밀번호를 DB에 업데이트
+		memberDAO.updateMemberPassword(memberDTO);
 	}
 
 	// public List<ChatDTO> ChattingCheck(String id) {

@@ -36,7 +36,6 @@ public class MemberDAO {
 		} else {
 			memberDTO.setType(0);
 		}
-		System.out.println(memberDTO.getComnum());
 		sqlSession.insert(namespace + ".insertMember", memberDTO);
 	}
 
@@ -132,8 +131,13 @@ public class MemberDAO {
 
 	// 회원 가입 중복 확인
 	public List<MemberDTO> insertCheck(MemberDTO memberDTO) {
-		// TODO Auto-generated method stub
 		return sqlSession.selectList(namespace + ".insertCheck", memberDTO);
+	}
+
+	public void updateMemberPassword(MemberDTO memberDTO) {
+	    System.out.println("MemberDAO updateMemberPassword()");
+	    // 비밀번호를 암호화된 형태로 DB에 업데이트
+	    sqlSession.update(namespace + ".updateMemberPassword", memberDTO);
 	}
 
 	// public List<ChatDTO> ChattingCheck(String id) {

@@ -9,7 +9,8 @@
 	<select id="userCheck" resultType="com.itwillbs.domain.MemberDTO">
 		select * 
 		from member
-		where id = #{id} and pw = #{pw}
+<!-- 		where id = #{id} and pw = #{pw} -->
+		where id = #{id}
 	</select>
 
 	<!-- 회원가입 중복 체크: 아이디, 이메일, 전화번호, 사업자번호 중복 확인 -->
@@ -132,5 +133,12 @@
 		where id = #{id}
 		order by r_num desc
 	</select>
+	
+	<!-- 기존 평문 비밀번호를 암호화된 비밀번호로 업데이트 -->
+	<update id="updateMemberPassword" parameterType="com.itwillbs.domain.MemberDTO">
+		update member
+		set pw = #{pw}
+		where id = #{id}
+	</update>
 
 </mapper>

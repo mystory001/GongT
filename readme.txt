@@ -12,6 +12,12 @@
 - 테이블 정의서 : https://docs.google.com/spreadsheets/d/19fxURHPvwkVdk63c8LweQPBBngY53Ui8/edit?gid=1086071801#gid=1086071801
 - ERD : https://drive.google.com/file/d/1RdICU9xdX0o7PFISii9RqLX77ZSDLmUB/view
 =======================================================================================================
+241223
+1. 스프링 시큐리티 암호화 기능 추가(로그인 시 평문 암호를 입력) -> https://001cloudid.tistory.com/entry/1%EC%B0%A8-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%B6%94%EA%B0%80-%EC%95%94%ED%98%B8%ED%99%942
+
+241222
+1. 스프링 시큐리티 암호화 기능 추가(pom.xml Maven Dependencies 의존성 추가, web.xml 스프링 시큐리티 추가) -> https://001cloudid.tistory.com/entry/1%EC%B0%A8-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%B6%94%EA%B0%80-%EC%95%94%ED%98%B8%ED%99%941
+
 241214
 1. 코드 주석 추가
 

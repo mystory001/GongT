@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.domain.ChatDTO;
@@ -57,7 +58,7 @@ public class MemberController {
 
 	@Inject
 	private ChattingService chattingService;
-
+	
 	// 로그인
 	@GetMapping("/main/login")
 	public String login() {
@@ -121,7 +122,7 @@ public class MemberController {
 	}
 
 	// 비밀번호 찾기 처리
-	@PostMapping("/main/searchPWPro")
+	@PostMapping("/main/findPW")
 	public String searchPWPro(MemberDTO memberDTO, Model model) {
 		System.out.println("MemberController searchPWPro()");
 		MemberDTO memberDTO2 = new MemberDTO();
@@ -187,7 +188,7 @@ public class MemberController {
 	@ResponseBody
 	public String idCheck(MemberDTO memberDTO, HttpServletResponse response) {
 		System.out.println("MemberController idCheck()");
-		System.out.println(memberDTO);
+//		System.out.println(memberDTO);
 		MemberDTO memberDTO1 = memberService.getMember(memberDTO.getId());
 		System.out.println(memberDTO1);
 		String result = "";
@@ -428,6 +429,14 @@ public class MemberController {
 	public String privacy() {
 		System.out.println("MemberController privacyPolicy()");
 		return "main/privacyPolicy";
+	}
+	
+	// 비밀번호 변경
+	@PostMapping("/main/findPwPro")
+	public String resetPwPro(MemberDTO memberDTO) {
+		System.out.println("MemberController resetPwPro()");
+		memberService.updateMemberPassword(memberDTO);
+		return "/main/pwChange";
 	}
 
 }

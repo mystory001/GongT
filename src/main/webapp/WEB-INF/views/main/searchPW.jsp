@@ -48,7 +48,7 @@ button {
 <body>
 	<div id="idForm">
 		<h2>비밀번호 찾기</h2>
-		<form action="${pageContext.request.contextPath}/main/searchPWPro"
+		<form action="${pageContext.request.contextPath}/main/findPW"
 			method="post">
 			<label for="id">아이디</label> <input type="text" name="id"
 				style="width: 250px" required><br> <label for="name">이름</label>
