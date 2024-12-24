@@ -12,6 +12,9 @@
 - 테이블 정의서 : https://docs.google.com/spreadsheets/d/19fxURHPvwkVdk63c8LweQPBBngY53Ui8/edit?gid=1086071801#gid=1086071801
 - ERD : https://drive.google.com/file/d/1RdICU9xdX0o7PFISii9RqLX77ZSDLmUB/view
 =======================================================================================================
+241224
+1. 스프링 시큐리티 암호화 기능 수정 -> https://001cloudid.tistory.com/entry/1%EC%B0%A8-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%B6%94%EA%B0%80-%EC%95%94%ED%98%B8%ED%99%942
+
 241223
 1. 스프링 시큐리티 암호화 기능 추가(로그인 시 평문 암호를 입력) -> https://001cloudid.tistory.com/entry/1%EC%B0%A8-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EC%B6%94%EA%B0%80-%EC%95%94%ED%98%B8%ED%99%942
 

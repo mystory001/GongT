@@ -30,39 +30,22 @@ public class MemberService {
 	}
 
 	// 로그인 시 체크
-//	public MemberDTO userCheck(MemberDTO memberDTO) {
-//		System.out.println("MemberService userCheck()");
-//		return memberDAO.userCheck(memberDTO);
-//	}
 	public MemberDTO userCheck(MemberDTO memberDTO) {
 		System.out.println("MemberService userCheck()");
-//		 // DB에서 회원 정보를 가져옴
-//        MemberDTO encodedPassword = memberDAO.userCheck(memberDTO);
-//
-//        // DB에서 가져온 암호화된 비밀번호와 비교
-//        if (encodedPassword != null && passwordEncoder.matches(memberDTO.getPw(), encodedPassword.getPw())) {
-//            return encodedPassword;
-//        }
-//        return null;
 		
-        // DB에서 회원 정보를 가져옴
-        MemberDTO encodedPassword = memberDAO.userCheck(memberDTO);
-
-        // DB에서 비밀번호가 암호화되지 않은 경우 (평문 비밀번호)
-        if (encodedPassword != null && !encodedPassword.getPw().startsWith("{bcrypt}")) {
-            // 평문 비밀번호로 로그인 처리
-            if (encodedPassword.getPw().equals(memberDTO.getPw())) {
-                return encodedPassword;
-            }
-        }
-        
-        // DB에서 비밀번호가 암호화된 경우 (BCrypt)
-        if (encodedPassword != null && passwordEncoder.matches(memberDTO.getPw(), encodedPassword.getPw())) {
-            return encodedPassword;
-        }
-        
-        // 로그인 실패
-        return null;
+		System.out.println("평문으로 입력한 비밀번호 : " + memberDTO.getPw());
+	
+		// DB에서 회원 정보를 가져옴
+		MemberDTO encodedPassword = memberDAO.userCheck(memberDTO);
+		// DB에서 가져온 비밀번호가 평문인 경우
+		if (encodedPassword != null && !encodedPassword.getPw().startsWith("{bcrypt}")) { // 기존 비밀번호가 평문인 경우
+			return encodedPassword;
+		}
+		// DB에서 가져온 암호화된 비밀번호와 입력된 비밀번호를 비교
+		if (encodedPassword != null && passwordEncoder.matches(memberDTO.getPw(), encodedPassword.getPw())) {
+			return encodedPassword;
+		}
+		return null; // 로그인 실패
 	}
 
 
@@ -191,16 +174,19 @@ public class MemberService {
 	public void updateMemberPassword(MemberDTO memberDTO) {
 		System.out.println("MemberService updateMemberPassword()");
 		
-	    // 비밀번호 암호화
+		System.out.println("입력한 비밀번호 : " + memberDTO.getPw());
+
+		// 비밀번호 암호화
         String encodedPassword = passwordEncoder.encode(memberDTO.getPw());
 
         // 암호화된 비밀번호를 memberDTO에 설정
         memberDTO.setPw(encodedPassword);
+        
+        System.out.println("암호화된 비밀번호 : " + encodedPassword);
 
         // 암호화된 비밀번호를 DB에 업데이트
 		memberDAO.updateMemberPassword(memberDTO);
 	}
-
 	// public List<ChatDTO> ChattingCheck(String id) {
 	// System.out.println("MemberDAO ChattingCheck()");
 	//
